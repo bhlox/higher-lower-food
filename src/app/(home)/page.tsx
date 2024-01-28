@@ -41,9 +41,11 @@ export default function Home() {
             </span>
           </h2>
         </div>
-        <Button className="capitalize size-20 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff">
-          <Link href={"/game"}>play!</Link>
-        </Button>
+        <Link href={"/game"}>
+          <Button className="capitalize size-20 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff">
+            play!
+          </Button>
+        </Link>
       </div>
       {foodBoxes.map((food, i) => (
         <ScatteredBox
