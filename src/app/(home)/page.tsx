@@ -23,9 +23,7 @@ const foodBoxes = [
 
 export default function Home() {
   const { restartStates } = useGameContext();
-  useEffect(() => {
-    restartStates();
-  }, []);
+  restartStates();
   return (
     <section className="flex h-[100dvh] flex-col items-center justify-center p-4 relative">
       <div className="space-y-6 flex flex-col justify-center items-center">
