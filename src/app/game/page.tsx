@@ -34,7 +34,7 @@ async function GamePage() {
       <Link href="/" className="absolute top-4 left-16">
         back
       </Link>
-        <GameScreen />
+      <GameScreen />
     </>
   );
 }

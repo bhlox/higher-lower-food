@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 function GameOver() {
   const { restartGame, score } = useGameContext();
+
   return (
     <div className="h-[100dvh] w-screen flex flex-col justify-center items-center space-y-6">
       <ScoreCard key={"sdfsdfsdf"} score={score} />
@@ -19,10 +20,7 @@ function GameOver() {
         >
           Try <br /> again
         </Button>
-        <Button
-          onClick={restartGame}
-          className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff"
-        >
+        <Button className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff">
           <Link href="/">Home</Link>
         </Button>
       </div>

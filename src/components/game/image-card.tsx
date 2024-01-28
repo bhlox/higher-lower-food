@@ -26,7 +26,7 @@ function ImageCard({
         boxShadow: "0",
         transition: { duration: 0.2, ease: "easeInOut" },
       }}
-      className="relative size-44 sm:size-56 lg:size-64 neu"
+      className="relative size-44 sm:size-56 lg:size-64 neu rounded-[50px]"
     >
       <Image
         src={`/assets/${brandName}.png`}

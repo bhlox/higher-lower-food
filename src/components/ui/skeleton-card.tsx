@@ -1,4 +1,6 @@
-export default function Loading() {
+import React from "react";
+
+function SkeletonCard() {
   return (
     <>
       {Array.from({ length: 2 }).map((_, i) => (
@@ -6,7 +8,7 @@ export default function Loading() {
           key={`div:${i}`}
           className="h-[50dvh] w-screen lg:h-screen lg:w-[50dvw] flex flex-col justify-center items-center gap-y-4 animate-pulse"
         >
-          <div className="relative size-44 sm:size-56 lg:size-64 rounded-lg bg-gray-400 grid place-items-center">
+          <div className="relative size-44 sm:size-56 lg:size-64 rounded-[50px] bg-gray-400 grid place-items-center">
             <svg
               className="lg:size-36 md:size-32 size-24 text-gray-200 dark:text-gray-600"
               aria-hidden="true"
@@ -24,3 +26,5 @@ export default function Loading() {
     </>
   );
 }
+
+export default SkeletonCard;

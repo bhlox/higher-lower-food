@@ -1,18 +1,18 @@
 import { useGameContext } from "@/components/providers/game-provider";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import Box from "../box";
 import ScoreUI from "../score";
 import LineDivider from "@/components/line-divider";
 import SlotMachine from "../slot-machine";
-import Loading from "@/app/game/loading";
 import { isEvenNum } from "@/lib/utils/helper";
+import SkeletonCard from "@/components/ui/skeleton-card";
 
 function Playing() {
   const { menuitemsData } = useGameContext();
   return (
     <>
-      {!menuitemsData.length ? <Loading /> : <QuestionContainer />}
+      {!menuitemsData.length ? <SkeletonCard /> : <QuestionContainer />}
       <SlotMachine />
       <ScoreUI />
       <LineDivider />
