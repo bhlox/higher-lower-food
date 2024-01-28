@@ -19,7 +19,7 @@ const foodBoxes = [
   },
 ];
 
-// KURK YOU ARE CURRENTLY HERE. 3 PRIO THINGS LEFT FOR NOW. once we fix the images on bucket, 1. finish the foodBoxes List on the home page. 2. create skeleton loader for game page on the cards. also it seems after restarting game it doesn't fall back to the suspense. 3. finish styling on game over page.
+// KURK YOU ARE CURRENTLY HERE. 3 PRIO THINGS LEFT FOR NOW. once we fix the images on bucket, 1. finish the foodBoxes List on the home page. 2. finish styling on game over page.
 
 export default function Home() {
   const { restartStates } = useGameContext();

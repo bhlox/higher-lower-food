@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 
 function GameOver() {
   const { restartGame, score } = useGameContext();
+
   return (
     <div className="h-[100dvh] w-screen flex flex-col justify-center items-center space-y-6">
       <ScoreCard key={"sdfsdfsdf"} score={score} />
