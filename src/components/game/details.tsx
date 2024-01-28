@@ -3,6 +3,7 @@ import { type AnswerChoice } from "@/lib/types";
 import React from "react";
 import { useGameContext } from "../providers/game-provider";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils/utils";
 
 // #TODO staggerChildren on animate for title price and other data
 
@@ -11,13 +12,21 @@ function Details({
   holdsNewData,
   price,
   questionId,
+  revealedPrice,
 }: {
   title: string;
   price: string;
   questionId: number;
   holdsNewData: boolean;
+  revealedPrice: string;
 }) {
-  const { setSelectedAnswer, setSpinSlots, selectedAnswer } = useGameContext();
+  const {
+    setSelectedAnswer,
+    setSpinSlots,
+    selectedAnswer,
+    setQuestionPrice,
+    setRevealedPrice,
+  } = useGameContext();
 
   const handleChooseAnswer = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -28,8 +37,11 @@ function Details({
       answer: e.currentTarget.textContent as AnswerChoice,
       questionId,
     });
+    setQuestionPrice(price);
+    if (revealedPrice) {
+      setRevealedPrice(revealedPrice);
+    }
   };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -69,9 +81,14 @@ function Details({
               disabled={Boolean(selectedAnswer)}
               key={Math.random()}
               onClick={handleChooseAnswer}
-              className={`rounded-full px-4 py-2 border-white border-2 capitalize md:text-lg ${
-                selectedAnswer === choice ? "bg-green-700" : ""
-              } ${selectedAnswer ? "cursor-not-allowed" : ""}`}
+              className={cn(
+                "rounded-full px-4 py-2 border-white border-2 capitalize md:text-lg",
+                undefined,
+                {
+                  "bg-green-700": selectedAnswer === choice,
+                  "cursor-not-allowed": selectedAnswer,
+                }
+              )}
             >
               {choice}
             </button>

@@ -22,6 +22,10 @@ const foodBoxes = [
 // KURK YOU ARE CURRENTLY HERE. 3 PRIO THINGS LEFT FOR NOW. once we fix the images on bucket, 1. finish the foodBoxes List on the home page. 2. finish styling on game over page.
 
 export default function Home() {
+  const { restartStates } = useGameContext();
+  useEffect(() => {
+    restartStates();
+  }, []);
   return (
     <section className="flex h-[100dvh] flex-col items-center justify-center p-4 relative">
       <div className="space-y-6 flex flex-col justify-center items-center">

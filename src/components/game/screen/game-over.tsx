@@ -1,7 +1,7 @@
 import { useGameContext } from "@/components/providers/game-provider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 function GameOver() {
