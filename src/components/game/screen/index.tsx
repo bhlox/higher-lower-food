@@ -5,10 +5,14 @@ import Playing from "./playing";
 import GameOver from "./game-over";
 
 function GameScreen() {
-  const { isGameOver } = useGameContext();
+  const { isGameOver, restartGame } = useGameContext();
+
+  useEffect(() => {
+    restartGame();
+  }, []);
   return (
     <section className="relative flex flex-col lg:flex-row bg-slate-800">
-      {!isGameOver ? <Playing /> : <GameOver />}      
+      {!isGameOver ? <Playing /> : <GameOver />}
     </section>
   );
 }
