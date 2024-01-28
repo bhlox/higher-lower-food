@@ -47,7 +47,7 @@ function Slot({
       .exhaustive();
   }, [assignedDigit, previousAssignedDigit, shuffledNums, spinSlots]);
 
-  console.log(pool);
+  // console.log(pool);
 
   useEffect(() => {
     if (textRef.current) {

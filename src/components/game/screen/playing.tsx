@@ -1,24 +1,31 @@
 import { useGameContext } from "@/components/providers/game-provider";
-import { isEvenNum } from "@/lib/utils/helper";
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
+import React, { Suspense, useEffect } from "react";
 import Box from "../box";
-import SlotsMachine from "../slot";
 import ScoreUI from "../score";
 import LineDivider from "@/components/line-divider";
 import SlotMachine from "../slot-machine";
+import Loading from "@/app/game/loading";
+import { isEvenNum } from "@/lib/utils/helper";
 
-// #TODO npm use CLSX?
 function Playing() {
-  const { menuitemsData, indexes } = useGameContext();
+  const { menuitemsData } = useGameContext();
+  return (
+    <>
+      {!menuitemsData.length ? <Loading /> : <QuestionContainer />}
+      <SlotMachine />
+      <ScoreUI />
+      <LineDivider />
+    </>
+  );
+}
 
-  if (!menuitemsData.length) {
-    return <motion.div className="">loading</motion.div>;
-  }
+function QuestionContainer() {
+  const { menuitemsData, indexes, setQuestionPrice, isFetching } =
+    useGameContext();
 
   const [prevIndex, currentIndex] = indexes;
 
-  // #TODO refactor below. it is also being used in the gameProvider
   const firstCardData =
     menuitemsData[isEvenNum(prevIndex) ? prevIndex : currentIndex];
   const secondCardData =
@@ -27,32 +34,33 @@ function Playing() {
   const whoHoldsNewData =
     firstCardData === menuitemsData[currentIndex] ? "first" : "second";
 
+  const questionSet = [firstCardData, secondCardData];
+
+  useEffect(() => {
+    if (whoHoldsNewData === "first") {
+      setQuestionPrice(firstCardData.price!);
+    } else {
+      setQuestionPrice(secondCardData.price!);
+    }
+  }, [
+    firstCardData.price,
+    secondCardData.price,
+    setQuestionPrice,
+    whoHoldsNewData,
+  ]);
+
   return (
     <>
       <AnimatePresence initial={false}>
-        {indexes.map((indexNum, i) => (
+        {questionSet.map((data, i) => (
           <Box
-            key={
-              menuitemsData[isEvenNum(indexNum) ? prevIndex : currentIndex].id
-            }
+            key={data.id}
             order={!i ? "first" : "second"}
             whoHoldsNewData={whoHoldsNewData}
-            data={menuitemsData[isEvenNum(indexNum) ? prevIndex : currentIndex]}
+            data={data}
           />
         ))}
       </AnimatePresence>
-
-      <SlotMachine
-        price={
-          whoHoldsNewData === "first"
-            ? firstCardData.price
-            : secondCardData.price
-        }
-
-        // price="333"
-      />
-      <ScoreUI />
-      <LineDivider />
     </>
   );
 }

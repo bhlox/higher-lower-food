@@ -6,8 +6,8 @@ import LightIndicator from "./light-indicator";
 import Slot from "./slot";
 import { useGameContext } from "../providers/game-provider";
 
-function SlotMachine({ price }: { price: string | number }) {
-  const { spinSlots } = useGameContext();
+function SlotMachine() {
+  const { spinSlots, questionPrice: price } = useGameContext();
   const priceArray = splitNumbers(price);
   const originalPriceArrayLength = priceArray.length;
 
@@ -35,7 +35,7 @@ function SlotMachine({ price }: { price: string | number }) {
             key={
               spinSlots
                 ? `slot:${price}:${i}`
-                : `slot:${+price + +previousAssigned}:${i}`
+                : `slot:${+(price ?? 0) + +previousAssigned}:${i}`
             }
             assignedDigit={num === 69 ? null : num}
             textSize={width < 641 ? 24 : width < 1025 ? 30 : 60}

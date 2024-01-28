@@ -4,7 +4,7 @@ import { ANSWER_CHOICES } from "./constants";
 export type MappedMenuItem = {
   id: number;
   title: string;
-  price: string;
+  price: string | null;
   imageLink: string;
   brand: {
     name: string;

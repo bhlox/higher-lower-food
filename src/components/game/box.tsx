@@ -28,17 +28,17 @@ export default function Box({
         items-center overflow-hidden ${!holdsNewData ? "bg-slate-800 " : ""}`}
     >
       <ImageCard
-        key={data.imageLink}
-        brandName={data.brand.name}
-        imgSrc={data.imageLink}
-        foodName={data.title}
+        key={data?.imageLink}
+        brandName={data?.brand.name}
+        imgSrc={data?.imageLink}
+        foodName={data?.title}
       />
       <Details
-        key={`details:${data.id}`}
-        title={data.title}
-        price={data.price}
+        key={`details:${data?.id}`}
+        title={data?.title}
+        price={data?.price!}
         holdsNewData={holdsNewData}
-        questionId={data.id}
+        questionId={data?.id}
       />
     </motion.div>
   );

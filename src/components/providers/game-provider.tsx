@@ -11,6 +11,7 @@ import React, {
   useState,
 } from "react";
 import { INITIAL_INDEXES } from "@/lib/constants";
+import Loading from "@/app/game/loading";
 
 // #TODO REFACTOR because it might cause unneccesary re renderings
 // #TODO usequery change to use the server action instead. but for you to do that you have to fix the type from cleanedItemData. the price key should be a type of string not string | null
@@ -30,6 +31,8 @@ interface IGameContext {
   handleResults: () => void;
   isCorrect: boolean | null;
   selectedAnswer: AnswerChoice | undefined;
+  setQuestionPrice: React.Dispatch<React.SetStateAction<number | string>>;
+  questionPrice: number | string;
 }
 
 const useFetchMenuItems = ({
@@ -42,8 +45,7 @@ const useFetchMenuItems = ({
   return useQuery({
     queryKey: ["menuitems", indexes],
     queryFn: async () => {
-      const { data } = await (await fetch("/api/menuitem")).json();
-      // const data = getMenuItems();
+      const data = await getMenuItems();
       setMenuitemsData((prev) => {
         return [...prev, ...data];
       });
@@ -69,7 +71,6 @@ export const GameContext = createContext<IGameContext | undefined>(undefined);
 export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   const queryClient = useQueryClient();
 
-  // replace spinslot state maybe?
   const [spinSlots, setSpinSlots] = useState(false);
   const [indexes, setIndexes] = useState(INITIAL_INDEXES);
   const [score, setScore] = useState(0);
@@ -77,8 +78,16 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   const [menuitemsData, setMenuitemsData] = useState<MappedMenuItem[]>([]);
   const [selectedAnwer, setSelectedAnswer] = useState<Answer | undefined>();
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [questionPrice, setQuestionPrice] = useState<string | number>(0);
 
   const [prevIndex, currentIndex] = indexes;
+
+  const { data, error, isFetching } = useFetchMenuItems({
+    indexes,
+    setMenuitemsData,
+  });
+
+  console.log(menuitemsData);
 
   const firstCardData =
     menuitemsData[isEvenNum(prevIndex) ? prevIndex : currentIndex];
@@ -87,11 +96,6 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const whoHoldsNewData =
     firstCardData === menuitemsData[currentIndex] ? "first" : "second";
-
-  const { data, error, isFetching } = useFetchMenuItems({
-    indexes,
-    setMenuitemsData,
-  });
 
   const getNextQuestion = async () => {
     setScore((c) => c + 1);
@@ -120,8 +124,8 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
     let unknownPrice!: number;
     let knownPrice!: number;
     questionSets.forEach((question) => {
-      const price = Number(question.price);
-      if (question.id === selectedAnwer?.questionId) {
+      const price = Number(question?.price);
+      if (question?.id === selectedAnwer?.questionId) {
         unknownPrice = price;
       } else {
         knownPrice = price;
@@ -136,7 +140,6 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
     if (results) {
       setIsCorrect(true);
       const correctSound = new Audio("/assets/correct.wav");
-      // import("@/lib/constants").then((mod) => mod.correctSound.play());
       correctSound.play();
       setTimeout(() => {
         getNextQuestion();
@@ -144,7 +147,6 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
     } else {
       setIsCorrect(false);
       const wrongSound = new Audio("/assets/wrong.wav");
-      // import("@/lib/constants").then((mod) => mod.wrongSound.play());
       wrongSound.play();
       setTimeout(() => {
         setIsGameOver(true);
@@ -169,6 +171,8 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
         setSelectedAnswer,
         isCorrect,
         selectedAnswer: selectedAnwer?.answer,
+        setQuestionPrice,
+        questionPrice,
       }}
     >
       {children}

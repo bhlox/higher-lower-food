@@ -1,10 +1,23 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import ScatteredBox from "@/components/ui/scattered-box";
+
+const foodBoxes = [
+  {
+    image: "/assets/greenwich.png",
+    position: "top-6 left-[20%]",
+    color: "bg-red-400",
+    size: "size-24 md:size-32",
+  },
+  {
+    image: "/assets/flag1.png",
+    position: "top-1/2 right-[10%]",
+    color: "bg-red-600",
+  },
+];
+
+// KURK YOU ARE CURRENTLY HERE. 3 PRIO THINGS LEFT FOR NOW. once we fix the images on bucket, 1. finish the foodBoxes List on the home page. 2. create skeleton loader for game page on the cards. also it seems after restarting game it doesn't fall back to the suspense. 3. finish styling on game over page.
 
 export default function Home() {
   return (
@@ -26,40 +39,15 @@ export default function Home() {
           <Link href={"/game"}>play!</Link>
         </Button>
       </div>
-      {/* <ScatteredObjects /> */}
+      {foodBoxes.map((food, i) => (
+        <ScatteredBox
+          key={`ScatteredBox:${i}`}
+          image={food.image}
+          color={food.color}
+          position={food.position}
+          size={food.size}
+        />
+      ))}
     </section>
   );
 }
-
-// function ScatteredObjects() {
-//   const [lastPoint, setLastPoint] = useState({ x: 0, y: 0 });
-
-//   useEffect(() => {
-//     const handleMouseMove = (e: MouseEvent) => {
-//       const xMovement = e.movementX > 0 ? 0.1 : e.movementX < 0 ? -0.1 : 0;
-//       const yMovement = e.movementY > 0 ? 0.1 : e.movementY < 0 ? -0.1 : 0;
-
-//       setLastPoint(({ x, y }) => {
-//         return { x: x + xMovement, y: y + yMovement };
-//       });
-//     };
-//     window.addEventListener("mousemove", handleMouseMove);
-
-//     return () => {
-//       window.removeEventListener("mousemove", handleMouseMove);
-//     };
-//   }, [lastPoint.x, lastPoint.y]);
-//   return (
-//     <motion.div
-//       animate={{ x: lastPoint.x, y: lastPoint.y }}
-//       transition={{
-//         type: "spring",
-//         stiffness: 50,
-//         damping: 10,
-//       }}
-//       className="absolute top-24 left-12 block shadow-2xl shadow-black bg-transparent rotate-12"
-//     >
-//       <Image src="/assets/chowking.png" alt="asd" width={400} height={400} />
-//     </motion.div>
-//   );
-// }

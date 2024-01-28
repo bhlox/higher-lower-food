@@ -25,7 +25,7 @@ export default function PreviousPathnameProvider({
     prevRef.current = prevRef.current
       ? [...prevRef.current, pathname]
       : [pathname];
-    console.log(prevRef.current);
+    // console.log(prevRef.current);
   }, [pathname]);
 
   return (
