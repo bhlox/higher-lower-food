@@ -1,8 +1,10 @@
+import { NUMBER_TO_FETCH } from "../constants";
+
 export function isEvenNum(num: number) {
   return Math.abs(num % 2) === 0;
 }
 
-export function shuffleArray([...arr]) {
+export function shuffleArray<T>([...arr]: T[]) {
   let m = arr.length;
   while (m) {
     const i = Math.floor(Math.random() * m--);
@@ -30,4 +32,15 @@ export function customTimeout(seconds: number) {
 export function splitNumbers(value: string | number) {
   const removedDecimals = removeDecimals(value);
   return removedDecimals.split("").map(Number);
+}
+
+export function isIndexQualifiedToFetch(
+  index: number
+): index is typeof NUMBER_TO_FETCH {
+  return (
+    Math.abs(
+      (+index.toString().at(-1)! === 0 ? 1 : +index.toString().at(-1)!) %
+        NUMBER_TO_FETCH
+    ) === 0
+  );
 }

@@ -3,11 +3,13 @@ import { MotionTransitionProps } from "./types";
 
 export const ZERO_TO_NINE_DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export const SLOT_Y_PADDING = 8;
+export const SLOT_Y_PADDING = 8 as const;
 
 export const ANSWER_CHOICES = ["higher", "lower"] as const;
 
 export const INITIAL_INDEXES = [0, 1];
+
+export const NUMBER_TO_FETCH = 9 as const;
 
 export const BOX_MOTION_VARIANTS: Variants = {
   firstEnter: {
@@ -62,8 +64,3 @@ export const BOX_MOTION_TRANSITION: MotionTransitionProps = {
   type: "spring",
   mass: 1.25,
 };
-
-// #TODO fix below. getting compiler errors when app is starting. probably dynamic import
-
-// export const correctSound = new Audio("/assets/correct.wav");
-// export const wrongSound = new Audio("/assets/wrong.wav");

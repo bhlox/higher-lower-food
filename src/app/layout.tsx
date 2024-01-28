@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import {
-  Inter,
-  DynaPuff,
-  Gantari,
-  Karla,
-  Overpass,
-  Radio_Canada,
-} from "next/font/google";
+import { Inter, DynaPuff, Overpass, Radio_Canada } from "next/font/google";
 import "../styles/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import { GameProvider } from "@/components/providers/game-provider";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-import { getMenuItems } from "@/lib/actions/menuActions";
 
 const inter = Inter({ subsets: ["latin"] });
 const dynaPuff = DynaPuff({
@@ -46,16 +33,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   return (
     <html lang="en">
       <body
         className={`${inter.className} ${dynaPuff.variable} ${overpass.variable} ${canada.variable} overflow-hidden relative bg-slate-600`}
       >
         <QueryProvider>
-          {/* <HydrationBoundary state={dehydrate(queryClient)}> */}
-            <GameProvider>{children}</GameProvider>
-          {/* </HydrationBoundary> */}
+          <GameProvider>{children}</GameProvider>
         </QueryProvider>
       </body>
     </html>

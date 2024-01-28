@@ -10,8 +10,6 @@ import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
 
-// KURK YOU ARE CURRENTLY HERE. WE WILL BE FETCHING DATA HERE IN SERVER COMPONENT. PASS TO CLIENT COMPONENT GAMESCREEN THEN PASS IT AS PARAMETER TO SETMENUITEMSDATA. DO NOT TRIGGER AT FIRST USE QUERY AT FIRST INDEX. NOT SURE ON THIS BECAUSE LOADERS MIGHT NOT BE NEEDED???
-
 async function GamePage() {
   // const headersList = headers();
   // const url = headersList.has("next-url");
@@ -22,19 +20,24 @@ async function GamePage() {
   //   redirect("/");
   // }
 
-  // const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["menuitems", [0, 1]],
-  //   queryFn: getMenuItems,
-  // });
+  await queryClient.prefetchInfiniteQuery({
+    initialPageParam: 0,
+    getNextPageParam: (lastPage: any, pages: any) => pages,
+    queryKey: ["menuitems"],
+    queryFn: () => getMenuItems(),
+    staleTime: Infinity,
+  });
 
   return (
     <>
       <Link href="/" className="absolute top-4 left-16">
         back
       </Link>
+      <HydrationBoundary state={dehydrate(queryClient)}>
         <GameScreen />
+      </HydrationBoundary>
     </>
   );
 }

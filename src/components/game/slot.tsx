@@ -1,13 +1,11 @@
 "use client";
-import { isNull, shuffleArray, splitNumbers } from "@/lib/utils/helper";
+import { isNull, shuffleArray } from "@/lib/utils/helper";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useGameContext } from "../providers/game-provider";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { P, match } from "ts-pattern";
 import { ZERO_TO_NINE_DIGITS, SLOT_Y_PADDING } from "@/lib/constants";
 import { SlotProps } from "@/lib/types";
-
-// #TODO change state management to zustand. add indication for correct and wrongg answers to light notifier. improve styling to SlotsMachine Component.
 
 function Slot({
   assignedDigit,
@@ -29,15 +27,15 @@ function Slot({
   );
 
   const shuffledNums = useMemo(() => {
-    return spinSlots ? shuffleArray(ZERO_TO_NINE_DIGITS) : ["?"];
+    return spinSlots ? shuffleArray(ZERO_TO_NINE_DIGITS) : null;
   }, [spinSlots]);
 
   const pool = useMemo(() => {
     return match([spinSlots, assignedDigit])
       .with([true, P.number], () => [
         assignedDigit,
-        ...shuffledNums,
-        ...shuffledNums,
+        ...shuffledNums!,
+        ...shuffledNums!,
         "?",
       ])
       .with([true, null], () => ["?"])
@@ -46,8 +44,6 @@ function Slot({
       )
       .exhaustive();
   }, [assignedDigit, previousAssignedDigit, shuffledNums, spinSlots]);
-
-  // console.log(pool);
 
   useEffect(() => {
     if (textRef.current) {
@@ -128,7 +124,7 @@ function Slot({
                 paddingTop: SLOT_Y_PADDING,
                 paddingBottom: SLOT_Y_PADDING,
               }}
-              className={`transition-all duration-1000 ease-in-out `}
+              className={`transition-all duration-1000 ease-in-out`}
             >
               {item}
             </p>
@@ -136,25 +132,6 @@ function Slot({
         </div>
       </div>
     </>
-  );
-}
-
-function SlotButtons({ setSpin, handleResetSlots }: any) {
-  return (
-    <div className="flex gap-2 z-20">
-      <button
-        onClick={() => setSpin(true)}
-        className="mt-2 bg-black rounded-lg text-2xl text-white px-4 py-2"
-      >
-        spin
-      </button>
-      <button
-        onClick={handleResetSlots}
-        className="mt-2 bg-black rounded-lg text-2xl text-white px-4 py-2"
-      >
-        reset
-      </button>
-    </div>
   );
 }
 

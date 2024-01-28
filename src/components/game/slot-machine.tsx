@@ -6,14 +6,15 @@ import LightIndicator from "./light-indicator";
 import Slot from "./slot";
 import { useGameContext } from "../providers/game-provider";
 
-function SlotMachine() {
-  const { spinSlots, questionPrice: price } = useGameContext();
+function SlotMachine({ price }: { price: string | number }) {
+  const { width } = useMediaQuery();
+  const { spinSlots } = useGameContext();
   const priceArray = splitNumbers(price);
   const originalPriceArrayLength = priceArray.length;
-
   while (priceArray.length < 4) {
     priceArray.unshift(69);
   }
+
   const previousAssigned = usePrevious(price) ?? 0;
   let previousPriceArray: number[] | undefined;
   if (previousAssigned) {
@@ -23,7 +24,6 @@ function SlotMachine() {
     }
   }
 
-  const { width } = useMediaQuery();
 
   return (
     <div className="absolute bg-gradient-to-t from-slate-800 via-slate-500 to-slate-800 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-xl outline outline-2 outline-slate-900">
@@ -53,7 +53,6 @@ function SlotMachine() {
         ))}
         <LightIndicator xBorder="left" />
       </div>
-      {/* <SlotButtons handleResetSlots={handleResetSlots} setSpin={setSpin} /> */}
     </div>
   );
 }

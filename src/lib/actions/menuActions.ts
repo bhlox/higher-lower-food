@@ -8,6 +8,7 @@ import { cookies } from "next/headers";
 import { MappedMenuItem } from "@/lib/types";
 
 export async function getMenuItems() {
+  console.log("server action triggered");
   if (!redisClient.isOpen) {
     redisClient.connect();
   }
@@ -87,6 +88,8 @@ export async function getMenuItems() {
     let { sizes, ...rest } = rand;
     return rest;
   });
+
+  // console.log(cleanedItemData);
 
   return cleanedItemData;
 }

@@ -1,7 +1,7 @@
 import { useGameContext } from "@/components/providers/game-provider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 
 function GameOver() {
@@ -19,10 +19,7 @@ function GameOver() {
         >
           Try <br /> again
         </Button>
-        <Button
-          onClick={restartGame}
-          className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff"
-        >
+        <Button className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff">
           <Link href="/">Home</Link>
         </Button>
       </div>
