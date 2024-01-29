@@ -22,12 +22,12 @@ function QuestionContainer() {
   const firstCardData = {
     ...menuItems[isEvenNum(prevIndex) ? prevIndex : currentIndex],
     new: false,
-    revealedPrice: "",
+    revealedPrice: 0,
   };
   const secondCardData = {
     ...menuItems[isEvenNum(currentIndex) ? prevIndex : currentIndex],
     new: false,
-    revealedPrice: "",
+    revealedPrice: 0,
   };
   const whoHoldsNewData =
     firstCardData.id === menuItems[currentIndex].id ? "first" : "second";
@@ -57,8 +57,8 @@ function QuestionContainer() {
       <SlotMachine
         price={
           whoHoldsNewData === "first"
-            ? firstCardData.price!
-            : secondCardData.price!
+            ? firstCardData.price
+            : secondCardData.price
         }
       />
     </>

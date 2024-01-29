@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ScatteredBox from "@/components/ui/scattered-box";
-import { useEffect } from "react";
 import { useGameContext } from "@/components/providers/game-provider";
+import { useEffect } from "react";
 
 const foodBoxes = [
   {
@@ -23,7 +23,9 @@ const foodBoxes = [
 
 export default function Home() {
   const { restartStates } = useGameContext();
-  restartStates();
+  useEffect(() => {
+    restartStates({ includeQuery: true });
+  });
   return (
     <section className="flex h-[100dvh] flex-col items-center justify-center p-4 relative">
       <div className="space-y-6 flex flex-col justify-center items-center">

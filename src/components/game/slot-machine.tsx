@@ -6,7 +6,7 @@ import LightIndicator from "./light-indicator";
 import Slot from "./slot";
 import { useGameContext } from "../providers/game-provider";
 
-function SlotMachine({ price }: { price: string | number }) {
+function SlotMachine({ price }: { price: number }) {
   const { width } = useMediaQuery();
   const { spinSlots } = useGameContext();
   const priceArray = splitNumbers(price);
@@ -24,7 +24,6 @@ function SlotMachine({ price }: { price: string | number }) {
     }
   }
 
-
   return (
     <div className="absolute bg-gradient-to-t from-slate-800 via-slate-500 to-slate-800 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-xl outline outline-2 outline-slate-900">
       <div className="flex ">
@@ -35,7 +34,7 @@ function SlotMachine({ price }: { price: string | number }) {
             key={
               spinSlots
                 ? `slot:${price}:${i}`
-                : `slot:${+(price ?? 0) + +previousAssigned}:${i}`
+                : `slot:${(price ?? 0) + previousAssigned}:${i}`
             }
             assignedDigit={num === 69 ? null : num}
             textSize={width < 641 ? 24 : width < 1025 ? 30 : 60}
@@ -46,7 +45,7 @@ function SlotMachine({ price }: { price: string | number }) {
             }
             previousAssignedDigit={
               previousPriceArray && previousPriceArray[i] !== 69
-                ? Number(previousPriceArray[i])
+                ? previousPriceArray[i]
                 : null
             }
           />

@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils/utils";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+// #BUG animations not working on first time? need to test on build
+
 export default function ScatteredBox({
   color,
   position,

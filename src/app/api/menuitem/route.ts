@@ -1,7 +1,7 @@
-import { getMenuItems } from "@/lib/actions/menuActions";
+import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
 
 export async function GET() {
-  const data = await getMenuItems();
+  const data = await getRandomUndiplicatedMenuItems();
 
   return Response.json({ data });
 }

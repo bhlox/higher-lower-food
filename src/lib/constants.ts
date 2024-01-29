@@ -59,6 +59,8 @@ export const BOX_MOTION_VARIANTS: Variants = {
   },
 };
 
+export const REDIS_KEY_SENT_MENUITEM = "sent_menuitem_ids" as const;
+
 export const BOX_MOTION_TRANSITION: MotionTransitionProps = {
   ease: "easeInOut",
   type: "spring",

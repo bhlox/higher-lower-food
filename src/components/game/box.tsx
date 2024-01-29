@@ -1,4 +1,4 @@
-import { MappedMenuItem, MotionTransitionProps } from "@/lib/types";
+import { MappedMenuItem } from "@/lib/types";
 import { motion } from "framer-motion";
 import ImageCard from "./image-card";
 import Details from "./details";
@@ -11,7 +11,7 @@ export default function Box({
   data,
   order,
 }: {
-  data: { new: boolean; revealedPrice: string } & MappedMenuItem;
+  data: { new: boolean; revealedPrice: number } & MappedMenuItem;
   order: "first" | "second";
 }) {
   return (
@@ -36,7 +36,7 @@ export default function Box({
       <Details
         key={`details:${data?.id}`}
         title={data?.title}
-        price={data?.price!}
+        price={data?.price}
         holdsNewData={data.new}
         questionId={data?.id}
         revealedPrice={data.revealedPrice}

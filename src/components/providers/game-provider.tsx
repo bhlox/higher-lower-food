@@ -1,5 +1,5 @@
 "use client";
-import { getMenuItems } from "@/lib/actions/menuActions";
+import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
 import { Answer, AnswerChoice } from "@/lib/types";
 import { useQueryClient } from "@tanstack/react-query";
 import React, {
@@ -25,10 +25,10 @@ interface IGameContext {
   handleResults: () => void;
   isCorrect: boolean | null;
   selectedAnswer: AnswerChoice | undefined;
-  setQuestionPrice: React.Dispatch<React.SetStateAction<number | string>>;
-  questionPrice: number | string;
-  setRevealedPrice: React.Dispatch<React.SetStateAction<string | number>>;
-  restartStates: () => void;
+  setQuestionPrice: React.Dispatch<React.SetStateAction<number>>;
+  questionPrice: number;
+  setRevealedPrice: React.Dispatch<React.SetStateAction<number>>;
+  restartStates: ({ includeQuery }: { includeQuery: boolean }) => void;
 }
 
 export const GameContext = createContext<IGameContext | undefined>(undefined);
@@ -41,19 +41,23 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   const [spinSlots, setSpinSlots] = useState(false);
   const [indexes, setIndexes] = useState(INITIAL_INDEXES);
   const [score, setScore] = useState(0);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(true);
   const [selectedAnwer, setSelectedAnswer] = useState<Answer | undefined>();
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [questionPrice, setQuestionPrice] = useState<string | number>(0);
-  const [revealedPrice, setRevealedPrice] = useState<string | number>(0);
+  const [questionPrice, setQuestionPrice] = useState<number>(0);
+  const [revealedPrice, setRevealedPrice] = useState<number>(0);
 
-  const restartStates = () => {
+  const restartStates = ({ includeQuery }: { includeQuery: boolean }) => {
     setScore(0);
     setIndexes(INITIAL_INDEXES);
     setSelectedAnswer(undefined);
     setIsCorrect(null);
     setSpinSlots(false);
     setIsGameOver(false);
+
+    if (includeQuery) {
+      queryClient.removeQueries({ queryKey: ["menuitems"] });
+    }
   };
 
   const getNextQuestion = async () => {
@@ -72,11 +76,11 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
       initialPageParam: 0,
       getNextPageParam: (lastPage: any, pages: any) => lastPage,
       queryKey: ["menuitems"],
-      queryFn: () => getMenuItems(),
+      queryFn: () => getRandomUndiplicatedMenuItems(),
       staleTime: Infinity,
     });
 
-    restartStates();
+    restartStates({ includeQuery: false });
   };
 
   const handleResults = () => {

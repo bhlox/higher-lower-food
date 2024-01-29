@@ -29,7 +29,7 @@ export function customTimeout(seconds: number) {
   });
 }
 
-export function splitNumbers(value: string | number) {
+export function splitNumbers(value: number) {
   const removedDecimals = removeDecimals(value);
   return removedDecimals.split("").map(Number);
 }
@@ -43,4 +43,8 @@ export function isIndexQualifiedToFetch(
         NUMBER_TO_FETCH
     ) === 0
   );
+}
+
+export function arrayHasValue<T>(value: T[]) {
+  return value.length > 0;
 }

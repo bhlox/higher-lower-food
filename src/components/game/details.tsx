@@ -15,10 +15,10 @@ function Details({
   revealedPrice,
 }: {
   title: string;
-  price: string;
+  price: number;
   questionId: number;
   holdsNewData: boolean;
-  revealedPrice: string;
+  revealedPrice: number;
 }) {
   const {
     setSelectedAnswer,
@@ -67,7 +67,7 @@ function Details({
           className="text-xl text-green-400 tabular-nums "
         >
           <span className="text-3xl align-bottom ">₱</span>
-          <span className="animate-counter">{Number(price)}</span>
+          <span className="animate-counter">{price}</span>
           .00
         </motion.p>
       ) : (
