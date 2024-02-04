@@ -45,6 +45,15 @@ export async function getRandomMenuItems() {
   });
 }
 
+export async function getRandomMenuImages() {
+  return await db.query.menuItems.findMany({
+    orderBy: sql`RANDOM()`,
+    columns: { imageLink: true },
+    limit: 8,
+    with: { brand: { columns: { name: true } } },
+  });
+}
+
 export async function addMenuItemIds({
   menuItemIds,
   uuid,
@@ -61,7 +70,7 @@ export async function addMenuItemIds({
     console.error(error);
   } finally {
     redisClient.expire(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, 600);
-    // redisClient.quit(); not sure
+    redisClient.quit();
   }
 }
 
@@ -81,6 +90,7 @@ export async function getRandomUndiplicatedMenuItems() {
   let randomItems = await db.query.menuItems.findMany({
     orderBy: sql`RANDOM()`,
     columns: { brandId: false, categoryId: false },
+    // where: (menuItems, { eq }) => eq(menuItems.brandId, 3),
     where: sentMenuItemIds
       ? notInArray(menuItems.id, sentMenuItemIds)
       : undefined,

@@ -61,3 +61,68 @@
   background-position-y: center;
   background-position-x: -9px;
 }
+
+/* #TODO REFACTOR BELOW */
+
+.rainbow-border:before {
+  scale: 0;
+}
+
+.rainbow-border:after {
+  scale: 0;
+}
+
+.rainbow-border:before,
+.rainbow-border:after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  background: linear-gradient(
+    45deg,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000,
+    #fb0094,
+    #0000ff,
+    #00ff00,
+    #ffff00,
+    #ff0000
+  );
+  border-radius: 10px;
+  background-size: 400%;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  z-index: -1;
+  animation: small 0s ease-in-out forwards, steam 20s linear infinite;
+}
+
+@keyframes small {
+  0% {
+    scale: 0;
+  }
+  80% {
+    scale: 1.03;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.rainbow-border:after {
+  filter: blur(50px);
+}

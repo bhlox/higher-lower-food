@@ -7,7 +7,7 @@ import GameOver from "./game-over";
 function GameScreen() {
   const { isGameOver } = useGameContext();
   return (
-    <section className="relative flex flex-col lg:flex-row bg-slate-800">
+    <section className="relative flex flex-col lg:flex-row">
       {!isGameOver ? <Playing /> : <GameOver />}
     </section>
   );

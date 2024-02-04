@@ -66,3 +66,41 @@ export const BOX_MOTION_TRANSITION: MotionTransitionProps = {
   type: "spring",
   mass: 1.25,
 };
+
+export const HOME_FOOD_BOXES = [
+  {
+    position: "-top-6 left-[55%]",
+    size: "size-20 sm:size-28 lg:size-32",
+  },
+  {
+    position: "md:top-6 md:left-[15%] left-[2%] sm:left-[7%] top-[3%]",
+    size: "size-24 sm:size-36 md:size-48 lg:size-56",
+  },
+  {
+    position: "md:top-[33%] md:-left-4 sm:top-[25%] top-[23%] -left-10",
+    size: "size-24 sm:size-32 lg:size-36",
+  },
+  {
+    position: "top-[65%] md:left-[5%] sm:left-0 -left-8",
+    size: "size-32 sm:size-36 md:size-48 lg:size-56",
+  },
+  {
+    position: "bottom-4 md:bottom-8 left-[15%] sm:left-[30%] md:left-[40%]",
+    size: "size-28 md:size-32 lg:size-36",
+  },
+  {
+    position:
+      "xl:-bottom-4 xl:-right-4 lg:bottom-4 lg:right-6 md:bottom-16 md:right-8 bottom-20 sm:right-4 -right-2",
+    size: "size-28 sm:size-36 md:size-44 lg:size-52",
+  },
+  {
+    position: "bottom-[30%] xl:right-[20%] lg:right-[5%] sm:-right-4 -right-6",
+    size: "size-24 md:size-28 lg:size-32",
+  },
+  {
+    position: "top-[15%] md:right-[10%] sm:right-[5%] -right-4",
+    size: "size-24 sm:size-36 md:size-44 lg:size-52",
+  },
+];
+
+export const DEFAULT_BOX_SHADOW_SCATTERED_BOX = "0 10px 15px -3px black";

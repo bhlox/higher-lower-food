@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 // #TODO add a flip animation. reference: https://codesandbox.io/p/sandbox/flip-card-cju2d?file=%2Fsrc%2FApp.tsx https://codesandbox.io/p/sandbox/wordle-90qj1i
@@ -13,6 +13,7 @@ function ImageCard({
   imgSrc: string;
   foodName: string;
 }) {
+  const [reloadImage, setReloadImage] = useState(false);
   return (
     <motion.div
       initial={{
@@ -36,12 +37,14 @@ function ImageCard({
         className="absolute top-2 left-1/2 -translate-x-1/2 w-[80%] lg:w-[90%]"
       />
       <Image
-        src={imgSrc}
+        src={reloadImage ? `${imgSrc}?t=${new Date().getTime()}` : imgSrc}
         alt={foodName}
         fill
-        className="rounded-lg object-contain"
-        objectPosition="bottom"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="rounded-lg object-contain object-bottom"
+        onError={() => {
+          setReloadImage(true);
+        }}
       />
     </motion.div>
   );

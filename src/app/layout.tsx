@@ -36,7 +36,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${dynaPuff.variable} ${overpass.variable} ${canada.variable} overflow-hidden relative bg-slate-600`}
+        className={`${inter.className} ${dynaPuff.variable} ${overpass.variable} ${canada.variable} overflow-hidden relative bg-slate-800`}
       >
         <QueryProvider>
           <GameProvider>{children}</GameProvider>

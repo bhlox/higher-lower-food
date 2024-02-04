@@ -4,7 +4,7 @@ export const useMediaQuery = () => {
   const [windowSize, setWindowSize] = React.useState<{
     width: number;
     height: number;
-  }>({ height: 0, width: 0 });
+  }>({ height: 1080, width: 1920 });
 
   React.useEffect(() => {
     const handleResize = () =>
