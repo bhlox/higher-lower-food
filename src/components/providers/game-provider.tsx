@@ -41,7 +41,7 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   const [spinSlots, setSpinSlots] = useState(false);
   const [indexes, setIndexes] = useState(INITIAL_INDEXES);
   const [score, setScore] = useState(0);
-  const [isGameOver, setIsGameOver] = useState(true);
+  const [isGameOver, setIsGameOver] = useState(false);
   const [selectedAnwer, setSelectedAnswer] = useState<Answer | undefined>();
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [questionPrice, setQuestionPrice] = useState<number>(0);

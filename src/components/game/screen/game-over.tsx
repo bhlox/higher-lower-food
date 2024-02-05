@@ -183,7 +183,7 @@ function CardBack({ showSide }: { showSide: "front" | "back" | null }) {
           cardBackRef.current!.style.boxShadow = `0px 0px 40px 1px blue`;
         }
       }}
-      className="absolute h-full w-full bg-black grid place-items-center transition-shadow duration-700 ease-in-out rounded-xl z-10"
+      className="absolute h-full w-full bg-black grid place-items-center transition-shadow duration-700 ease-in-out rounded-xl z-10 "
     >
       <div className="fancy-border border-[24px] flex items-center justify-center h-[92.5%] w-[92.5%]">
         <span className="text-white absolute top-8 left-1/2 -translate-x-1/2 text-6xl font-gideon uppercase">

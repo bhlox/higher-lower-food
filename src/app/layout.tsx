@@ -8,6 +8,7 @@ import {
 import "../styles/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import { GameProvider } from "@/components/providers/game-provider";
+import NextTopLoader from "nextjs-toploader";
 
 const dynaPuff = DynaPuff({
   display: "swap",
@@ -48,6 +49,13 @@ export default async function RootLayout({
       <body
         className={`${dynaPuff.variable} ${overpass.variable} ${canada.className} ${gideon.variable} overflow-hidden relative bg-slate-800`}
       >
+        <NextTopLoader
+          showSpinner={false}
+          initialPosition={0.3}
+          speed={1000}
+          height={4}
+          color="#fece3f"
+        />
         <QueryProvider>
           <GameProvider>{children}</GameProvider>
         </QueryProvider>
