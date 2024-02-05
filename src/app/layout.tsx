@@ -4,7 +4,6 @@ import "../styles/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import { GameProvider } from "@/components/providers/game-provider";
 
-const inter = Inter({ subsets: ["latin"] });
 const dynaPuff = DynaPuff({
   display: "swap",
   subsets: ["latin"],
@@ -36,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} ${dynaPuff.variable} ${overpass.variable} ${canada.variable} overflow-hidden relative bg-slate-800`}
+        className={`${dynaPuff.variable} ${overpass.variable} ${canada.className} overflow-hidden relative bg-slate-800`}
       >
         <QueryProvider>
           <GameProvider>{children}</GameProvider>

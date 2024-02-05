@@ -58,7 +58,6 @@ function Details({
         className="px-4 w-[90%] md:w-[75%] mx-auto"
       >
         <h4 className="md:text-xl font-semibold capitalize">{title}</h4>
-        {price}
       </motion.div>
       {!holdsNewData ? (
         <motion.p
@@ -66,15 +65,15 @@ function Details({
           animate={{ opacity: 1 }}
           className="text-xl text-green-400 tabular-nums "
         >
-          <span className="text-3xl align-bottom ">₱</span>
-          <span className="animate-counter">{price}</span>
+          <span className="text-3xl align-bottom">₱</span>
+          <span>{price}</span>
           .00
         </motion.p>
       ) : (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className={`space-x-4`}
+          className={`space-x-4 mt-2`}
         >
           {ANSWER_CHOICES.map((choice) => (
             <button
@@ -82,10 +81,10 @@ function Details({
               key={Math.random()}
               onClick={handleChooseAnswer}
               className={cn(
-                "rounded-full px-4 py-2 border-white border-2 capitalize md:text-lg",
+                "rounded-xl px-4 py-2 border-white border-2 capitalize md:text-lg",
                 undefined,
                 {
-                  "bg-green-700": selectedAnswer === choice,
+                  "bg-white text-black": selectedAnswer === choice,
                   "cursor-not-allowed": selectedAnswer,
                 }
               )}

@@ -22,7 +22,7 @@ export default function Box({
       exit={`${order}Exit`}
       transition={BOX_MOTION_TRANSITION}
       className={cn(
-        "text-white h-[50dvh] w-screen lg:h-screen lg:w-[50dvw] flex flex-col justify-center items-center overflow-hidden",
+        "text-white h-[50dvh] w-screen lg:h-screen lg:w-[50dvw] flex flex-col justify-center items-center overflow-hidden gap-2 md:gap-4",
         undefined,
         { "bg-slate-800": !data.new }
       )}
