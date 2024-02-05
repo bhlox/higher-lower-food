@@ -16,6 +16,7 @@ const config = {
         dynaPuff: ["var(--font-dynaPuff)"],
         overpass: ["var(--font-overpass)"],
         canada: ["var(--font-canada)"],
+        gideon: ["var(--font-gideon)"],
       },
       keyframes: {
         "accordion-down": {

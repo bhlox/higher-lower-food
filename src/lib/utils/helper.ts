@@ -78,3 +78,33 @@ export function getRandomIndex(arr: any[]) {
 
   return randomIndex;
 }
+
+export function convertToRoman(num: number) {
+  const roman = {
+    M: 1000,
+    CM: 900,
+    D: 500,
+    CD: 400,
+    C: 100,
+    XC: 90,
+    L: 50,
+    XL: 40,
+    X: 10,
+    IX: 9,
+    V: 5,
+    IV: 4,
+    I: 1,
+  } as const;
+  let str = "";
+
+  for (let i of Object.keys(roman) as Array<keyof typeof roman>) {
+    const q = Math.floor(num / roman[i]);
+    num -= q * roman[i];
+    str += i.repeat(q);
+  }
+
+  return str;
+}
+export function generateRandomNumber(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}

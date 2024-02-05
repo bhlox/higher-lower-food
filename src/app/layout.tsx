@@ -1,5 +1,10 @@
 import type { Metadata } from "next";
-import { Inter, DynaPuff, Overpass, Radio_Canada } from "next/font/google";
+import {
+  DynaPuff,
+  Overpass,
+  Radio_Canada,
+  Gideon_Roman,
+} from "next/font/google";
 import "../styles/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import { GameProvider } from "@/components/providers/game-provider";
@@ -19,6 +24,12 @@ const canada = Radio_Canada({
   subsets: ["latin"],
   variable: "--font-canada",
 });
+const gideon = Gideon_Roman({
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-gideon",
+  weight: "400",
+});
 
 // #TODO PRIO add splash screen. idea was side by side by side arrow ⬆️⬇️ from out screen to center to out.
 
@@ -35,7 +46,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${dynaPuff.variable} ${overpass.variable} ${canada.className} overflow-hidden relative bg-slate-800`}
+        className={`${dynaPuff.variable} ${overpass.variable} ${canada.className} ${gideon.variable} overflow-hidden relative bg-slate-800`}
       >
         <QueryProvider>
           <GameProvider>{children}</GameProvider>

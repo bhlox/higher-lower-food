@@ -126,3 +126,49 @@
 .rainbow-border:after {
   filter: blur(50px);
 }
+
+.fancy-border {
+  border-image-source: url("/assets/border6.png");
+  border-image-slice: 87 81 87 81;
+  border-image-width: 20px 20px 20px 20px;
+  border-image-repeat: round round;
+}
+
+.magic-star {
+  --size: clamp(20px, 1.5vw, 30px);
+
+  animation: scale 700ms ease forwards;
+  display: block;
+  height: var(--size);
+  left: var(--star-left);
+  position: absolute;
+  top: var(--star-top);
+  width: var(--size);
+}
+
+.magic-star > svg {
+  animation: rotate 1000ms linear infinite;
+  display: block;
+  opacity: 0.7;
+}
+
+@keyframes scale {
+  from,
+  to {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
