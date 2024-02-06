@@ -9,6 +9,8 @@ import "../styles/globals.css";
 import QueryProvider from "@/components/providers/query-provider";
 import { GameProvider } from "@/components/providers/game-provider";
 import NextTopLoader from "nextjs-toploader";
+import { headers } from "next/headers";
+import { DeviceProvider } from "@/components/providers/device-provider";
 
 const dynaPuff = DynaPuff({
   display: "swap",
@@ -44,6 +46,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const userAgent = headers().get("user-agent")!;
   return (
     <html lang="en">
       <body
@@ -57,7 +60,9 @@ export default async function RootLayout({
           color="#fece3f"
         />
         <QueryProvider>
-          <GameProvider>{children}</GameProvider>
+          <DeviceProvider userAgent={userAgent}>
+            <GameProvider>{children}</GameProvider>
+          </DeviceProvider>
         </QueryProvider>
       </body>
     </html>
