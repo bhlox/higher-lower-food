@@ -1,3 +1,4 @@
+"use server";
 import GameScreen from "@/components/game/screen";
 import { Button } from "@/components/ui/button";
 import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
@@ -12,11 +13,13 @@ import { redirect, useRouter } from "next/navigation";
 import React from "react";
 
 async function GamePage() {
-  // const headersList = headers();
+  const headersList = headers();
   // const url = headersList.has("next-url");
   // headersList.forEach((value, key, parent) => {
-  // console.log({ [key]: value });
+  //   console.log({ [key]: value });
   // });
+  const userAgent = headersList.get("user-agent");
+  console.log(userAgent);
   // if (!url) {
   //   redirect("/");
   // }

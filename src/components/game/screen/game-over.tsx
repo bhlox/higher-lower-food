@@ -32,7 +32,7 @@ function GameOver() {
   );
 }
 
-// #TODO animation card idea. it infinitely flips going up fast, then slides down or enters from left or right screen going to center with score reveal.
+// #TODO particle animation instead of starGlitter. starGlitter only if new highscore. partical animation refs: https://freefrontend.com/css-particle-backgrounds/ . ALSO FOUND IN OUR CODEPEN LIKES
 
 function ScoreCard() {
   const { width } = useMediaQuery();

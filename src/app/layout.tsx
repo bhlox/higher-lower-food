@@ -32,7 +32,7 @@ const gideon = Gideon_Roman({
   weight: "400",
 });
 
-// #TODO PRIO add splash screen. idea was side by side by side arrow ⬆️⬇️ from out screen to center to out.
+// #TODO add splash screen. idea was side by side by side arrow ⬆️⬇️ from out screen to center to out.
 
 export const metadata: Metadata = {
   title: "Create Next App",
