@@ -1,8 +1,8 @@
 "use client";
 import { isNull, shuffleArray } from "@/lib/utils/helper";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { useGameContext } from "../providers/game-provider";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useGameContext } from "../../providers/game-provider";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { P, match } from "ts-pattern";
 import { ZERO_TO_NINE_DIGITS, SLOT_Y_PADDING } from "@/lib/constants";
 import { SlotProps } from "@/lib/types";
@@ -100,38 +100,36 @@ function Slot({
   }, [boxRef, handleResults, isLastIndex, spinSlots, isCorrect]);
 
   return (
-    <>
+    <div
+      style={{ height: `${textHeight}px` }}
+      className="flex justify-center items-end tabular-nums border-x-2 border-black overflow-hidden"
+    >
       <div
-        style={{ height: `${textHeight}px` }}
-        className="flex justify-center items-end tabular-nums border-x-2 border-black overflow-hidden"
+        ref={boxRef}
+        style={{
+          transitionDelay: `${index * 200}ms`,
+          transform: `translateY(${boxHeight - textHeight}px)`,
+          transitionDuration: spinSlots ? "2000ms" : "500ms",
+        }}
+        className={`px-4 transition-all ease-in-out flex flex-col items-center justify-center gap-y-4 tabular-nums`}
       >
-        <div
-          ref={boxRef}
-          style={{
-            transitionDelay: `${index * 200}ms`,
-            transform: `translateY(${boxHeight - textHeight}px)`,
-            transitionDuration: spinSlots ? "2000ms" : "500ms",
-          }}
-          className={`px-4 transition-all ease-in-out flex flex-col items-center justify-center gap-y-4 tabular-nums`}
-        >
-          {pool?.map((item, i) => (
-            <p
-              ref={!i ? textRef : undefined}
-              key={Math.random()}
-              style={{
-                fontSize: `${textSize}px`,
-                lineHeight: 1,
-                paddingTop: SLOT_Y_PADDING,
-                paddingBottom: SLOT_Y_PADDING,
-              }}
-              className={`transition-all duration-1000 ease-in-out`}
-            >
-              {item}
-            </p>
-          ))}
-        </div>
+        {pool?.map((item, i) => (
+          <p
+            ref={!i ? textRef : undefined}
+            key={Math.random()}
+            style={{
+              fontSize: `${textSize}px`,
+              lineHeight: 1,
+              paddingTop: SLOT_Y_PADDING,
+              paddingBottom: SLOT_Y_PADDING,
+            }}
+            className={`transition-all duration-1000 ease-in-out`}
+          >
+            {item}
+          </p>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 

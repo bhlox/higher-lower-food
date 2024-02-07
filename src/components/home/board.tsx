@@ -3,9 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PlayButton from "./play-btn";
 import { useGameContext } from "../providers/game-provider";
 import { cn } from "@/lib/utils/utils";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-
-// SWITCH IT BACK TO ONANIMATION END INSTEAD. ONANIMATION START IS UNRELIABLE AND CLEARING TIMEOUTS IS NOT RELIABLE IN THIS CASE
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 function HomeBoard() {
   const { restartStates } = useGameContext();
@@ -22,7 +20,7 @@ function HomeBoard() {
       className={cn(
         "space-y-6 flex flex-col justify-center items-center relative rounded-xl md:p-8 p-4 lg:p-16 bg-slate-900 shadow-xl shadow-black transition-shadow duration-100 ease-in-out group",
         undefined,
-        { "rainbow-border shadow-none": showRainbowBorder || width < 769 }
+        { "rainbow-border shadow-none": showRainbowBorder || width <= 768 }
       )}
     >
       <div className="text-center text-white ">
@@ -32,7 +30,7 @@ function HomeBoard() {
         </h4>
         <h2 className="font-semibold text-4xl sm:text-5xl lg:text-7xl font-dynaPuff capitalize ">
           higher lower <br />{" "}
-          <span className="bg-clip-text text-image text-transparent tracking-widest text-4xl sm:text-5xl lg:text-7xl">
+          <span className="bg-clip-text text-flag-bgImage text-transparent tracking-widest text-4xl sm:text-5xl lg:text-7xl">
             Philippines
           </span>
         </h2>

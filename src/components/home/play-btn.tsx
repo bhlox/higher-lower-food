@@ -1,10 +1,10 @@
 import Link from "next/link";
 import React from "react";
-import AnimatedBorders from "../ui/animated-borders";
+import AnimatedBorders from "../animated-borders";
 import { AnyCallback } from "@/lib/types";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import { cn } from "@/lib/utils/utils";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 function PlayButton({ handler }: { handler?: AnyCallback }) {
   const { width } = useMediaQuery();

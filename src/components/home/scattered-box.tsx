@@ -1,5 +1,5 @@
 "use client";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { DEFAULT_BOX_SHADOW_SCATTERED_BOX } from "@/lib/constants";
 import { ScatteredBoxProps } from "@/lib/types";
 import { getRandomIndex } from "@/lib/utils/helper";
@@ -94,13 +94,20 @@ export function ScatteredBoxList({ list }: { list: ScatteredBoxProps[] }) {
   );
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (width < 769) {
+    let interval: NodeJS.Timeout, timeout: NodeJS.Timeout;
+    if (width <= 768) {
+      timeout = setTimeout(() => {
+        setBoxIndexToAnimate(getRandomIndex(list));
+      }, 300);
+
       interval = setInterval(() => {
         setBoxIndexToAnimate(getRandomIndex(list));
       }, 4500);
     }
     return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
       if (interval) {
         clearInterval(interval);
       }

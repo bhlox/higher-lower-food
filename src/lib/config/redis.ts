@@ -1,6 +1,7 @@
 import { createClient } from "redis";
 import env from "./env";
 
+// #TODO fix this. probably switch to upstash???
 export const redisClient = createClient({
   password: env.REDIS_PW,
   socket: {
@@ -12,6 +13,6 @@ export const redisClient = createClient({
   redisClient.quit();
 });
 
-if (!redisClient.isOpen) {
-  await redisClient.connect();
-}
+// if (!redisClient.isOpen) {
+//   await redisClient.connect();
+// }

@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { AnyCallback } from "@/lib/types";
 import { cn } from "@/lib/utils/utils";
 import React from "react";

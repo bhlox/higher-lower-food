@@ -46,7 +46,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const userAgent = headers().get("user-agent")!;
+  const userAgent = headers().get("user-agent") ?? "";
   return (
     <html lang="en">
       <body

@@ -1,5 +1,3 @@
-import LineDivider from "@/components/line-divider";
-
 export default function Loading() {
   return (
     <div className="flex flex-col lg:flex-row relative bg-slate-800">
@@ -23,7 +21,6 @@ export default function Loading() {
           <div className="p-2 w-32 bg-gray-400 rounded-xl" />
         </div>
       ))}
-      <LineDivider />
       <div className="absolute top-2 md:top-4 right-6 md:right-24 p-4 w-32 animate-pulse bg-gray-400 rounded-xl" />
       <div className="absolute bg-gradient-to-t from-slate-800 via-slate-500 to-slate-800 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-xl outline outline-2 outline-slate-900 h-12 w-64" />
     </div>

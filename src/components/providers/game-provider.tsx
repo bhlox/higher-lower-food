@@ -3,6 +3,7 @@ import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
 import { Answer, AnswerChoice } from "@/lib/types";
 import { useQueryClient } from "@tanstack/react-query";
 import React, {
+  ElementRef,
   PropsWithChildren,
   createContext,
   useContext,
@@ -35,8 +36,8 @@ export const GameContext = createContext<IGameContext | undefined>(undefined);
 
 export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   const queryClient = useQueryClient();
-  const correctSound = useRef<HTMLAudioElement>();
-  const wrongSound = useRef<HTMLAudioElement>();
+  const correctSound = useRef<ElementRef<"audio">>();
+  const wrongSound = useRef<ElementRef<"audio">>();
 
   const [spinSlots, setSpinSlots] = useState(false);
   const [indexes, setIndexes] = useState(INITIAL_INDEXES);

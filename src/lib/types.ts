@@ -1,5 +1,7 @@
 import { AnimationProps, MotionProps } from "framer-motion";
-import { ANSWER_CHOICES } from "./constants";
+import { ANSWER_CHOICES, CARD_SIDES } from "./constants";
+
+export type TODO = any;
 
 export type MappedMenuItem = {
   id: number;
@@ -44,3 +46,5 @@ export type ScatteredBoxProps = {
   shouldAnimate: boolean;
   className?: string;
 };
+
+export type CardSides = (typeof CARD_SIDES)[number];

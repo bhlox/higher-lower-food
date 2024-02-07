@@ -1,5 +1,5 @@
 "use server";
-import { ScatteredBoxList } from "@/components/ui/scattered-box";
+import { ScatteredBoxList } from "@/components/home/scattered-box";
 import { getRandomMenuImages } from "@/lib/actions/menuitems";
 import { HOME_FOOD_BOXES } from "@/lib/constants";
 import HomeBoard from "@/components/home/board";

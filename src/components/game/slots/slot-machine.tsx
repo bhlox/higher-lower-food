@@ -1,10 +1,10 @@
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { usePrevious } from "@/hooks/usePrevious";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { usePrevious } from "@/hooks/use-previous";
 import { splitNumbers } from "@/lib/utils/helper";
 import React from "react";
-import LightIndicator from "./light-indicator";
+import SlotLightIndicator from "./slot-light-indicator";
 import Slot from "./slot";
-import { useGameContext } from "../providers/game-provider";
+import { useGameContext } from "../../providers/game-provider";
 
 function SlotMachine({ price }: { price: number }) {
   const { width } = useMediaQuery();
@@ -27,10 +27,9 @@ function SlotMachine({ price }: { price: number }) {
   return (
     <div className="absolute bg-gradient-to-t from-slate-800 via-slate-500 to-slate-800 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 rounded-xl outline outline-2 outline-slate-900">
       <div className="flex ">
-        <LightIndicator xBorder="right" />
+        <SlotLightIndicator xBorder="right" />
         {priceArray.map((num, i) => (
           <Slot
-            // key has Math.random() value instead in this case because of how transitions are desired in this case. having a fixed value (i + randomFixNumber) will not give us our desired transition.
             key={
               spinSlots
                 ? `slot:${price}:${i}`
@@ -50,7 +49,7 @@ function SlotMachine({ price }: { price: number }) {
             }
           />
         ))}
-        <LightIndicator xBorder="left" />
+        <SlotLightIndicator xBorder="left" />
       </div>
     </div>
   );

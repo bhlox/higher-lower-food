@@ -104,3 +104,5 @@ export const HOME_FOOD_BOXES = [
 ];
 
 export const DEFAULT_BOX_SHADOW_SCATTERED_BOX = "0 10px 15px -3px black";
+
+export const CARD_SIDES = ["front", "back", null] as const;

@@ -1,22 +1,24 @@
+import React, { useState, useEffect } from "react";
 import { useDeviceContext } from "@/components/providers/device-provider";
-import React from "react";
+import { P, match } from "ts-pattern";
 
 export const useMediaQuery = () => {
   const { mobileDeviceType } = useDeviceContext();
-  // #TODO use ts-pattern
-  const [windowSize, setWindowSize] = React.useState<{
+  const [windowSize, setWindowSize] = useState<{
     width: number;
     height: number;
-  }>({
-    height: mobileDeviceType ? 740 : 1080,
-    width: mobileDeviceType
-      ? mobileDeviceType === "tablet"
-        ? 768
-        : 500
-      : 1920,
+  }>(() => {
+    return match(mobileDeviceType)
+      .with("phone", () => ({
+        width: 500,
+        height: 740,
+      }))
+      .with("tablet", () => ({ width: 768, height: 1024 }))
+      .with(P.nullish, () => ({ width: 1920, height: 1080 }))
+      .exhaustive();
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleResize = () =>
       setWindowSize({ width: window.innerWidth, height: window.innerHeight });
 

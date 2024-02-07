@@ -1,5 +1,6 @@
 "use client";
 import { useContext, createContext } from "react";
+import { P, match } from "ts-pattern";
 
 interface IDeviceContext {
   mobileDeviceType: "tablet" | "phone" | null;
@@ -21,12 +22,19 @@ export const DeviceProvider = ({
       userAgent
     );
 
-  // #TODO use ts-pattern
-  const mobileDeviceType = isMobile
-    ? /Tablet|iPad/i.test(userAgent)
-      ? "tablet"
-      : "phone"
-    : null;
+  const mobileDeviceType = match(isMobile)
+    .with(true, () => {
+      return match(userAgent)
+        .returnType<"tablet" | "phone">()
+        .with(
+          P.when((ua) => /Tablet|iPad/i.test(ua)),
+          () => "tablet"
+        )
+        .otherwise(() => "phone");
+    })
+    .with(false, () => null)
+    .exhaustive();
+
   return (
     <DeviceContext.Provider value={{ mobileDeviceType }}>
       {children}

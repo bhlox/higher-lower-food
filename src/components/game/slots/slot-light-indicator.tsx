@@ -1,9 +1,9 @@
 import React from "react";
-import { useGameContext } from "../providers/game-provider";
+import { useGameContext } from "../../providers/game-provider";
 import { match } from "ts-pattern";
 import { cn } from "@/lib/utils/utils";
 
-function LightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
+function SlotLightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
   const { spinSlots, isCorrect } = useGameContext();
 
   const lightColor = match([spinSlots, isCorrect])
@@ -32,4 +32,4 @@ function LightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
   );
 }
 
-export default LightIndicator;
+export default SlotLightIndicator;

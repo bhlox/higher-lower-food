@@ -3,7 +3,7 @@ import { useGameContext } from "../providers/game-provider";
 import { useFetchMenuItems } from "@/lib/utils/utils";
 import { isEvenNum, isIndexQualifiedToFetch } from "@/lib/utils/helper";
 import { AnimatePresence } from "framer-motion";
-import SlotMachine from "./slot-machine";
+import SlotMachine from "./slots/slot-machine";
 import Box from "./box";
 
 function QuestionContainer() {
@@ -13,6 +13,7 @@ function QuestionContainer() {
     indexes,
   });
 
+  // #TODO create error page
   if (error) {
     throw new Error("error fetching menuItems");
   }
