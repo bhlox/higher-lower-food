@@ -13,9 +13,8 @@ function QuestionContainer() {
     indexes,
   });
 
-  // #TODO create error page
   if (error) {
-    throw new Error("error fetching menuItems");
+    throw new Error(error.message);
   }
 
   const menuItems = data?.pages.flat()!;
