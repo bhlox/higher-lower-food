@@ -8,13 +8,17 @@ import { useMediaQuery } from "@/hooks/use-media-query";
 import StarGlitter from "../star-glitter-fx";
 import { P, match } from "ts-pattern";
 import { CardSides } from "@/lib/types";
+import { getScoreVisualAttributes } from "@/lib/utils/utils";
 
 // #TODO particle animation instead of starGlitter. starGlitter only if new highscore. partical animation refs: https://freefrontend.com/css-particle-backgrounds/ . ALSO FOUND IN OUR CODEPEN LIKES
 
 function ScoreCard() {
   const { width } = useMediaQuery();
+  const { score } = useGameContext();
   const [showSide, setShowSide] = useState<CardSides>(null);
   const [hovering, setHovering] = useState(false);
+
+  const scoreVA = getScoreVisualAttributes(score);
   return (
     <>
       <motion.div
@@ -28,11 +32,9 @@ function ScoreCard() {
         animate={{
           y: 0,
           transition: {
-            duration: 0.2,
             ease: "easeInOut",
             type: "spring",
-            mass: 0.5,
-            bounce: 1,
+            mass: 0.3,
             damping: 4,
           },
         }}
@@ -52,19 +54,29 @@ function ScoreCard() {
         onMouseLeave={() => setHovering(false)}
         className="h-[448.8px] w-[298.8px] grid place-items-center cursor-pointer group relative"
       >
-        <CardFront showSide={showSide} />
-        <CardBack showSide={showSide} />
-        {(hovering || width < 769) &&
-          [...Array(3)].map((_, i) => (
-            <StarGlitter key={`star:${i}`} index={i} />
+        <CardFront showSide={showSide} boxShadow={scoreVA.boxShadow} />
+        <CardBack showSide={showSide} boxShadow={scoreVA.boxShadow} />
+        {(hovering || width <= 768) &&
+          Boolean(score) &&
+          [...Array(scoreVA.starCount)].map((_, i) => (
+            <StarGlitter
+              key={`star:${i}`}
+              index={i}
+              interval={scoreVA.starInterval}
+            />
           ))}
       </motion.div>
     </>
   );
 }
 
-function CardFront({ showSide }: { showSide: CardSides }) {
-  const { score } = useGameContext();
+function CardFront({
+  showSide,
+  boxShadow,
+}: {
+  showSide: CardSides;
+  boxShadow: string;
+}) {
   const cardFrontRef = useRef<HTMLDivElement>(null);
   const rotation = match(showSide)
     .with("front", () => 0)
@@ -72,14 +84,6 @@ function CardFront({ showSide }: { showSide: CardSides }) {
     .with(P.nullish, () => 180)
     .exhaustive();
 
-  const shadowColor = match({ score })
-    .with({ score: P.when((sco) => sco >= 1 && sco < 10) }, () => "#059669")
-    .with({ score: P.when((sco) => sco >= 10 && sco <= 15) }, () => "#fef08a")
-    .with({ score: P.when((sco) => sco >= 15) }, () => "#a855f7")
-    .otherwise(() => "#e7e5e4");
-
-  // #TODO create shadowIntensity
-  // const shadowIntensity
   // const testRef = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
@@ -122,10 +126,9 @@ function CardFront({ showSide }: { showSide: CardSides }) {
           cardFrontRef.current!.style.boxShadow = "0px 0px 0px 0px";
         }
       }}
-      //   #TODO change shadow color
       onAnimationComplete={() => {
         if (showSide === "front") {
-          cardFrontRef.current!.style.boxShadow = `0px 0px 40px 1px ${shadowColor}`;
+          cardFrontRef.current!.style.boxShadow = boxShadow;
         }
       }}
       className="bg-black h-full w-full grid place-items-center transition-shadow duration-700 ease-in-out rounded-xl z-10"
@@ -144,7 +147,13 @@ function CardFront({ showSide }: { showSide: CardSides }) {
   );
 }
 
-function CardBack({ showSide }: { showSide: CardSides }) {
+function CardBack({
+  showSide,
+  boxShadow,
+}: {
+  showSide: CardSides;
+  boxShadow: string;
+}) {
   const { score } = useGameContext();
   const romanNumerals = score ? convertToRoman(score) : "skill issue";
   const cardBackRef = useRef<ElementRef<"div">>(null);
@@ -153,6 +162,7 @@ function CardBack({ showSide }: { showSide: CardSides }) {
     .with("front", () => -180)
     .with(P.nullish, () => 0)
     .exhaustive();
+
   return (
     <motion.div
       id="score-back"
@@ -171,7 +181,7 @@ function CardBack({ showSide }: { showSide: CardSides }) {
       }}
       onAnimationComplete={() => {
         if (showSide === "back") {
-          cardBackRef.current!.style.boxShadow = `0px 0px 40px 1px blue`;
+          cardBackRef.current!.style.boxShadow = boxShadow;
         }
       }}
       className="absolute h-full w-full bg-black grid place-items-center transition-shadow duration-700 ease-in-out rounded-xl z-10 "

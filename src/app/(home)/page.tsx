@@ -22,7 +22,7 @@ export default async function Home() {
     }
   );
   return (
-    <section className="flex h-[100dvh] flex-col items-center justify-center p-4 relative">
+    <section className="flex h-[100dvh] flex-col items-center justify-center p-4 relative overflow-hidden">
       <HomeBoard />
       <ScatteredBoxList list={mappedHOME_FOOD_BOXES} />
     </section>

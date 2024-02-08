@@ -1,7 +1,13 @@
 import { generateRandomNumber } from "@/lib/utils/helper";
 import React, { ElementRef, useCallback, useEffect, useRef } from "react";
 
-function StarGlitter({ index }: { index: number }) {
+function StarGlitter({
+  index,
+  interval = 1000,
+}: {
+  index: number;
+  interval?: number;
+}) {
   const starsRef = useRef<ElementRef<"span">>(null);
   const intervalId = useRef<NodeJS.Timeout>();
 
@@ -15,7 +21,6 @@ function StarGlitter({ index }: { index: number }) {
   }, []);
 
   useEffect(() => {
-    let interval = 1000;
     const star = starsRef.current;
     if (star) {
       setTimeout(() => {
@@ -28,7 +33,7 @@ function StarGlitter({ index }: { index: number }) {
         clearInterval(intervalId.current);
       };
     }
-  }, [animate, index]);
+  }, [animate, index, interval]);
   return (
     <span className="z-50 magic-star" ref={starsRef}>
       <svg viewBox="0 0 512 512">
