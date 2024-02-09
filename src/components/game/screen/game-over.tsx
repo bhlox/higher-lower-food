@@ -5,7 +5,10 @@ import React from "react";
 import ScoreCard from "../score-card";
 
 function GameOver() {
-  const { restartGame } = useGameContext();
+  const { restartGame, highScoreRef } = useGameContext();
+
+  const highScore = highScoreRef.current;
+
   return (
     <div className="w-screen h-[100dvh] flex flex-col justify-center items-center space-y-6 relative">
       <ScoreCard />
@@ -24,6 +27,9 @@ function GameOver() {
             Home
           </Button>
         </Link>
+      </div>
+      <div className="absolute bottom-4 left-4 text-white text-4xl font-bold">
+        High Score: {highScore}
       </div>
     </div>
   );

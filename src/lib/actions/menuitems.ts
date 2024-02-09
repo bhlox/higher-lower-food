@@ -8,11 +8,13 @@ import { REDIS_KEY_SENT_MENUITEM } from "../constants";
 import { arrayHasValue } from "../utils/helper";
 import { MappedMenuItem } from "../types";
 
+// #TODO change name
 const serverGetCookie = (name: string) =>
   cookies().get(name)?.value.split("-").pop();
 
 export async function getSentMenuItemIds(uuid: string) {
   try {
+    // await redisClient.connect();
     const members = await redisClient.smembers(
       `${REDIS_KEY_SENT_MENUITEM}:${uuid}`
     );
@@ -26,6 +28,8 @@ export async function getSentMenuItemIds(uuid: string) {
     console.error("redis error happened. error msg to follow");
     console.error(error);
     return undefined;
+  } finally {
+    // redisClient.disconnect();
   }
 }
 
@@ -62,6 +66,7 @@ export async function addMenuItemIds({
   uuid: string;
 }) {
   try {
+    // await redisClient.connect();
     if (arrayHasValue(menuItemIds)) {
       await redisClient.sadd(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, menuItemIds);
     }
@@ -70,7 +75,7 @@ export async function addMenuItemIds({
     console.error(error);
   } finally {
     redisClient.expire(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, 600);
-    // redisClient.quit();
+    // redisClient.disconnect();
   }
 }
 
@@ -106,7 +111,9 @@ export async function getRandomUndiplicatedMenuItems() {
   });
 
   if (randomItems.length !== 10) {
+    // await redisClient.connect();
     await redisClient.del(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`);
+    // redisClient.disconnect();
     randomItems = await getRandomMenuItems();
   }
 
@@ -147,6 +154,6 @@ export async function getRandomUndiplicatedMenuItems() {
       return { ...rest };
     })
     .map((item) => ({ ...item, price: item.price ? Number(item.price) : 0 }));
-
+  console.log(cleanedItemData);
   return cleanedItemData;
 }

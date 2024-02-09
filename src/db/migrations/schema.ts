@@ -7,8 +7,11 @@ import {
   text,
   foreignKey,
   numeric,
+  uuid,
+  timestamp,
   bigint,
   primaryKey,
+  smallint,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -84,6 +87,20 @@ export const menuItems = pgTable(
     };
   }
 );
+
+export const users = pgTable("users", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" })
+    .defaultNow()
+    .notNull(),
+  scores: smallint("scores")
+    .default(sql`'{}'::smallint[]`)
+    .array(),
+  highestScore: integer("highest_score"),
+});
 
 export const sizes = pgTable(
   "sizes",

@@ -1,15 +1,18 @@
 "use server";
 import GameScreen from "@/components/game/screen";
 import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
+import { createAnonUser } from "@/lib/actions/users";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import Link from "next/link";
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
+
+// #BUG when accessing this page directly, error is occuring. assuming that prefetch is not working
 
 async function GamePage() {
   // const headersList = headers();
@@ -31,6 +34,7 @@ async function GamePage() {
     staleTime: Infinity,
   });
 
+  await createAnonUser();
   return (
     <>
       {/* <Link href="/" className="z-30 absolute top-4 left-6">

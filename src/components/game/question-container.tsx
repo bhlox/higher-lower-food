@@ -5,17 +5,32 @@ import { isEvenNum, isIndexQualifiedToFetch } from "@/lib/utils/helper";
 import { AnimatePresence } from "framer-motion";
 import SlotMachine from "./slots/slot-machine";
 import Box from "./box";
+import {
+  FetchNextPageOptions,
+  InfiniteData,
+  InfiniteQueryObserverResult,
+} from "@tanstack/react-query";
+import { MappedMenuItem } from "@/lib/types";
 
-function QuestionContainer() {
+function QuestionContainer({}: // data,
+// fetchNextPage,
+{
+  data?: InfiniteData<MappedMenuItem[], unknown>;
+  fetchNextPage?: (
+    options?: FetchNextPageOptions | undefined
+  ) => Promise<
+    InfiniteQueryObserverResult<InfiniteData<MappedMenuItem[], unknown>, Error>
+  >;
+}) {
   const { indexes } = useGameContext();
   const [prevIndex, currentIndex] = indexes;
   const { data, error, fetchNextPage } = useFetchMenuItems({
     indexes,
   });
 
-  if (error) {
-    throw new Error(error.message);
-  }
+  // if (error) {
+  //   throw new Error(error.message);
+  // }
 
   const menuItems = data?.pages.flat()!;
 

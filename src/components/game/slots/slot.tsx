@@ -16,7 +16,7 @@ function Slot({
   previousAssignedDigit,
 }: SlotProps) {
   const { width } = useMediaQuery();
-  const { spinSlots, handleResults, isCorrect } = useGameContext();
+  const { spinSlots, handleRoundResults, isCorrect } = useGameContext();
   const boxRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const [textHeight, setTextHeight] = useState<number>(
@@ -79,7 +79,7 @@ function Slot({
       }
       if (isLastIndex && spinSlots && !isCorrect) {
         setTimeout(() => {
-          handleResults();
+          handleRoundResults();
         }, 1000);
       }
     };
@@ -97,7 +97,7 @@ function Slot({
       box?.removeEventListener("transitionstart", handleTransitionStart);
       box?.removeEventListener("transitionend", handleTransitionEnd);
     };
-  }, [boxRef, handleResults, isLastIndex, spinSlots, isCorrect]);
+  }, [boxRef, handleRoundResults, isLastIndex, spinSlots, isCorrect]);
 
   return (
     <div
