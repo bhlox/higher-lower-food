@@ -5,6 +5,7 @@ const env = cleanEnv(process.env, {
   SUPABASE_DB_PW: str(),
   REDIS_PW: str(),
   REDIS_HOST: str(),
+  REDIS_URL_UPSTASH: str(),
   ENCRYPT_KEY: str({ default: "32" }),
   ENCRYPT_IV: str({ default: "16" }),
 });

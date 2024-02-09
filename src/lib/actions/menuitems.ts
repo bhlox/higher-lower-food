@@ -13,14 +13,14 @@ const serverGetCookie = (name: string) =>
 
 export async function getSentMenuItemIds(uuid: string) {
   try {
-    const members = await redisClient.sMembers(
+    const members = await redisClient.smembers(
       `${REDIS_KEY_SENT_MENUITEM}:${uuid}`
     );
     const numberIds = members.map(Number);
     if (arrayHasValue(numberIds)) {
       return numberIds;
     } else {
-      throw new Error("no numberIds found");
+      console.log("no numberIds found");
     }
   } catch (error) {
     console.error("redis error happened. error msg to follow");
@@ -63,14 +63,14 @@ export async function addMenuItemIds({
 }) {
   try {
     if (arrayHasValue(menuItemIds)) {
-      await redisClient.sAdd(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, menuItemIds);
+      await redisClient.sadd(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, menuItemIds);
     }
   } catch (error) {
     console.error("redis error happened. error msg to follow");
     console.error(error);
   } finally {
     redisClient.expire(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, 600);
-    redisClient.quit();
+    // redisClient.quit();
   }
 }
 
