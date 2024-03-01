@@ -5,7 +5,7 @@ import env from "./env";
 export const redisClient = new Redis({
   host: env.REDIS_HOST,
   password: env.REDIS_PW,
-  port: 14153,
+  port: 10480,
 });
 
 // if (!redisClient.isOpen) {
