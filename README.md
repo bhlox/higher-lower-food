@@ -1,7 +1,7 @@
 # Higher lower food - Philippines edition
 
-![Home](/assets/home preview.png)
-![Game](/assets/game preview.png)
+![Home](https://github.com/bhlox/higher-lower-food/blob/main/public/assets/home%20preview.png)
+![Game](https://github.com/bhlox/higher-lower-food/blob/main/public/assets/game%20preview.png)
 
 A game where you compare prices between two menu items and determine which has a higher or lower price range. This is generally for anyone particularly living in the Philippines since these users are consumers of these food brands.
 
