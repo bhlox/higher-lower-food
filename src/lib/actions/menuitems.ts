@@ -14,7 +14,10 @@ const serverGetCookie = (name: string) =>
 
 export async function getSentMenuItemIds(uuid: string) {
   try {
-    // await redisClient.connect();
+    const status = redisClient.status;
+    if (status !== "connecting" && status !== "ready") {
+      await redisClient.connect();
+    }
     const members = await redisClient.smembers(
       `${REDIS_KEY_SENT_MENUITEM}:${uuid}`
     );
@@ -76,6 +79,7 @@ export async function addMenuItemIds({
   } finally {
     redisClient.expire(`${REDIS_KEY_SENT_MENUITEM}:${uuid}`, 600);
     // redisClient.disconnect();
+    redisClient.quit();
   }
 }
 
