@@ -5,8 +5,10 @@ import Loading from "@/app/game/loading";
 import QuestionContainer from "../question-container";
 import { useGameContext } from "@/components/providers/game-provider";
 import { useFetchMenuItems } from "@/lib/utils/utils";
+import Link from "next/link";
+import { FaCaretLeft } from "react-icons/fa";
 
-// #TODO create back button to home
+
 function Playing() {
   const { indexes } = useGameContext();
   const { data, error, fetchNextPage } = useFetchMenuItems({
@@ -27,6 +29,12 @@ function Playing() {
           <Loading />
         )}
       </Suspense>
+      <Link
+        href={"/"}
+        className="absolute top-4 left-4 z-40 bg-none text-white flex justify-center items-center hover:scale-105 transition-transform ease-in-out duration-100"
+      >
+        <FaCaretLeft className="inline" /> Back
+      </Link>
       <LineDivider />
     </>
   );
