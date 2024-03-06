@@ -10,6 +10,7 @@ A game where you compare prices between two menu items and determine which has a
 - Responsive Design: Users can enjoy the game on any device, whether it's a desktop computer, tablet, or smartphone. The responsive design ensures that the game adapts seamlessly to different screen sizes and orientations, providing a consistent experience across devices.
 - Reduced repetition of items: This makes sure that the user doesn't get the same food item therefore increasing the chances of randomness further. It would only reset if all items are viewed by the user.
 - Animations and transitions: Added a playful element to how the user engages with the content to add a subtle tension to the results.
+- Highest score achieved: Add a element to indicate the end users highest score achieved.
 
 ## Technologies
 
