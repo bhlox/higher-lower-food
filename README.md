@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Higher lower food - Philippines edition
 
-## Getting Started
+![Home](./public/assets/home preview.png)
+![Game](./public/assets/game preview.png)
 
-First, run the development server:
+A game where you compare prices between two menu items and determine which has a higher or lower price range. This is generally for anyone particularly living in the Philippines since these users are consumers of these food brands.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Responsive Design: Users can enjoy the game on any device, whether it's a desktop computer, tablet, or smartphone. The responsive design ensures that the game adapts seamlessly to different screen sizes and orientations, providing a consistent experience across devices.
+- Reduced repetition of items: This makes sure that the user doesn't get the same food item therefore increasing the chances of randomness further. It would only reset if all items are viewed by the user.
+- Animations and transitions: Added a playful element to how the user engages with the content to add a subtle tension to the results.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js
+- Typescript
+- Tailwind
+- redis: Particularly this is used to store the ids of the food items that were viewed by the end user
+- drizzle: a lightweight, type-safe ORM designed for TypeScript projects, offering both relational and SQL-like query APIs for flexible data access. It's serverless-ready by design, supporting major database dialects with zero dependencies, ensuring top performance and a developer-friendly experience
+- supabase: this is the postgresql database
+- express: Used to scrape the data from the fast food chains
