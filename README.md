@@ -1,7 +1,7 @@
 # Higher lower food - Philippines edition
 
-![Home](./public/assets/home preview.png)
-![Game](./public/assets/game preview.png)
+![Home](/assets/home preview.png)
+![Game](/assets/game preview.png)
 
 A game where you compare prices between two menu items and determine which has a higher or lower price range. This is generally for anyone particularly living in the Philippines since these users are consumers of these food brands.
 
