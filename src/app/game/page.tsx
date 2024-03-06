@@ -27,7 +27,7 @@ async function GamePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchInfiniteQuery({
-    initialPageParam: 0,
+    initialPageParam: [],
     getNextPageParam: (lastPage: any, pages: any) => pages,
     queryKey: ["menuitems"],
     queryFn: getRandomUndiplicatedMenuItems,

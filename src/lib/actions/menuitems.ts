@@ -154,6 +154,5 @@ export async function getRandomUndiplicatedMenuItems() {
       return { ...rest };
     })
     .map((item) => ({ ...item, price: item.price ? Number(item.price) : 0 }));
-  console.log(cleanedItemData);
   return cleanedItemData;
 }

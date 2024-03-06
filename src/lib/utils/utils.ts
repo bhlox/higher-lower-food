@@ -10,6 +10,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const useFetchMenuItems = ({ indexes }: { indexes: number[] }) => {
+  // console.log(indexes);
   return useInfiniteQuery({
     initialPageParam: [],
     getNextPageParam: (lastPage, pages) => {

@@ -12,16 +12,7 @@ import {
 } from "@tanstack/react-query";
 import { MappedMenuItem } from "@/lib/types";
 
-function QuestionContainer({}: // data,
-// fetchNextPage,
-{
-  data?: InfiniteData<MappedMenuItem[], unknown>;
-  fetchNextPage?: (
-    options?: FetchNextPageOptions | undefined
-  ) => Promise<
-    InfiniteQueryObserverResult<InfiniteData<MappedMenuItem[], unknown>, Error>
-  >;
-}) {
+function QuestionContainer() {
   const { indexes } = useGameContext();
   const [prevIndex, currentIndex] = indexes;
   const { data, error, fetchNextPage } = useFetchMenuItems({
