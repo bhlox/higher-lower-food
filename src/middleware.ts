@@ -13,6 +13,7 @@ export async function middleware(req: NextRequest) {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60,
     });
   }
   return res;

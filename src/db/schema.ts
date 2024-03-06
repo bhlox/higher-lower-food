@@ -8,8 +8,11 @@ import {
   integer,
   primaryKey,
   unique,
+  uuid,
+  timestamp,
+  smallint,
 } from "drizzle-orm/pg-core";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 export const categories = pgTable(
   "categories",
@@ -117,6 +120,20 @@ export const brandsCategories = pgTable(
     };
   }
 );
+
+export const users = pgTable("users", {
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true, mode: "string" })
+    .defaultNow()
+    .notNull(),
+  updatedAt: timestamp("updated_at", { withTimezone: true, mode: "string" })
+    .defaultNow()
+    .notNull(),
+  scores: smallint("scores")
+    .default(sql`'{}'::smallint[]`)
+    .array(),
+  highestScore: integer("highest_score"),
+});
 
 // #BUG: $infertInsert method is currently buggy. auto generated fields are still being required. consulted with the drizzle AI chatbot and it has something to do with the drizzle-orm version. for now do the typing yourself LOL or change to any type. use the typescript ignore utils for further use
 export type Category = typeof categories.$inferSelect;

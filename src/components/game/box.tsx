@@ -1,22 +1,19 @@
-import { MappedMenuItem, MotionTransitionProps } from "@/lib/types";
+import { MappedMenuItem } from "@/lib/types";
 import { motion } from "framer-motion";
 import ImageCard from "./image-card";
 import Details from "./details";
 import { BOX_MOTION_TRANSITION, BOX_MOTION_VARIANTS } from "@/lib/constants";
+import { cn } from "@/lib/utils/utils";
 
 // #TODO test if this approach of css transitions is better. https://codesandbox.io/p/sandbox/basic-transition-cisbc?file=%2Fsrc%2FApp.tsx
 
 export default function Box({
   data,
-  whoHoldsNewData,
   order,
 }: {
-  data: MappedMenuItem;
+  data: { new: boolean; revealedPrice: number } & MappedMenuItem;
   order: "first" | "second";
-  whoHoldsNewData: "first" | "second";
 }) {
-  const holdsNewData = whoHoldsNewData === order;
-
   return (
     <motion.div
       variants={BOX_MOTION_VARIANTS}
@@ -24,21 +21,25 @@ export default function Box({
       animate="slideTo"
       exit={`${order}Exit`}
       transition={BOX_MOTION_TRANSITION}
-      className={`text-white h-[50dvh] w-screen lg:h-screen lg:w-[50dvw] flex flex-col justify-center
-        items-center overflow-hidden ${!holdsNewData ? "bg-slate-800 " : ""}`}
+      className={cn(
+        "text-white h-[50dvh] w-screen lg:h-screen lg:w-[50dvw] flex flex-col justify-center items-center overflow-hidden gap-2 md:gap-4",
+        undefined,
+        { "bg-slate-800": !data.new }
+      )}
     >
       <ImageCard
-        key={data.imageLink}
-        brandName={data.brand.name}
-        imgSrc={data.imageLink}
-        foodName={data.title}
+        key={data?.imageLink}
+        brandName={data?.brand?.name}
+        imgSrc={data?.imageLink}
+        foodName={data?.title}
       />
       <Details
-        key={`details:${data.id}`}
-        title={data.title}
-        price={data.price}
-        holdsNewData={holdsNewData}
-        questionId={data.id}
+        key={`details:${data?.id}`}
+        title={data?.title}
+        price={data?.price}
+        holdsNewData={data.new}
+        questionId={data?.id}
+        revealedPrice={data.revealedPrice}
       />
     </motion.div>
   );

@@ -1,26 +1,39 @@
+"use server";
 import GameScreen from "@/components/game/screen";
-import { headers } from "next/headers";
-import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
+import { getRandomUndiplicatedMenuItems } from "@/lib/actions/menuitems";
+import { createAnonUser } from "@/lib/actions/users";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import React from "react";
 
 async function GamePage() {
   // const headersList = headers();
   // const url = headersList.has("next-url");
   // headersList.forEach((value, key, parent) => {
-  // console.log({ [key]: value });
+  //   console.log({ [key]: value });
   // });
   // if (!url) {
   //   redirect("/");
   // }
 
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    initialPageParam: [],
+    getNextPageParam: (lastPage: any, pages: any) => pages,
+    queryKey: ["menuitems"],
+    queryFn: getRandomUndiplicatedMenuItems,
+    staleTime: Infinity,
+  });
+
+  await createAnonUser();
   return (
-    <>
-      <Link href="/" className="absolute top-4 left-16">
-        back
-      </Link>
-      <GameScreen />
-    </>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <GameScreen />
+      </HydrationBoundary>
   );
 }
 

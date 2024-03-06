@@ -1,120 +1,37 @@
 import { useGameContext } from "@/components/providers/game-provider";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
+import ScoreCard from "../score-card";
 
 function GameOver() {
-  const { restartGame, score } = useGameContext();
+  const { restartGame, highScoreRef } = useGameContext();
+
+  const highScore = highScoreRef.current;
+
   return (
-    <div className="h-[100dvh] w-screen flex flex-col justify-center items-center space-y-6">
-      <ScoreCard key={"sdfsdfsdf"} score={score} />
-      <h2 className=" text-2xl md:text-6xl font-bold font-dynaPuff text-white">
+    <div className="w-screen h-[100dvh] flex flex-col justify-center items-center space-y-6 relative">
+      <ScoreCard />
+      <h2 className="text-2xl md:text-6xl font-bold font-dynaPuff text-white z-10">
         Game over. Try again
       </h2>
-      <div className="flex gap-4">
+      <div className="flex gap-4 z-10">
         <Button
           onClick={restartGame}
           className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff"
         >
           Try <br /> again
         </Button>
-        <Button
-          onClick={restartGame}
-          className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff"
-        >
-          <Link href="/">Home</Link>
-        </Button>
+        <Link href="/">
+          <Button className="capitalize size-28 p-0 rounded-full bg-green-800 border-b-4 border-r-2 border-l-2 border-green-600 hover:border-0 transition-all duration-100  hover:bg-green-800 text-2xl font-dynaPuff">
+            Home
+          </Button>
+        </Link>
+      </div>
+      <div className="absolute bottom-4 left-4 text-white text-4xl font-bold">
+        High Score: {highScore}
       </div>
     </div>
-  );
-}
-
-// #TODO animation card idea. it infinitely flips going up fast, then slides down or enters from left or right screen going to center with score reveal.
-
-function ScoreCard({ score }: { score: number }) {
-  return (
-    <>
-      <motion.div
-        initial={{ y: "-135%" }}
-        animate={{
-          y: 0,
-          transition: {
-            duration: 0.2,
-            ease: "easeInOut",
-            type: "spring",
-            mass: 0.5,
-            bounce: 1,
-            damping: 4,
-          },
-        }}
-        // transition={{ type: "spring", mass: 1.35, bounce: 2, }}
-        className="relative w-48 h-96"
-      >
-        {/* <motion.div
-          initial={{
-            transform: `rotateY(${flip ? 0 : 180}deg)`,
-            background: "blue",
-            // perspective: "600px",
-          }}
-          animate={{
-            transform: `rotateY(${flip ? 0 : 180}deg)`,
-            background: "blue",
-            // backfaceVisibility: "hidden",
-            transition: { duration: 0.4 },
-            transformStyle: "preserve-3d",
-            perspective: "600px",
-            animationIterationCount: "infinite",
-          }}
-          className={`absolute h-full w-full rounded-xl flex justify-center items-center text-white`}
-        >
-          {score}
-        </motion.div> */}
-        <motion.div
-          initial={{
-            // transform: `rotateY(${flip ? 0 : 180}deg)`,
-            transform: `rotateY(${180}deg)`,
-            // backfaceVisibility: "hidden",
-            background: "blue",
-            perspective: "600px",
-          }}
-          animate={{
-            // transform: `rotateY(${flip ? 0 : 180}deg)`,
-            transform: `rotateY(${0}deg)`,
-            background: "blue",
-            backfaceVisibility: "hidden",
-            transition: { duration: 1.2, ease: "easeInOut", delay: 0.9 },
-            transformStyle: "preserve-3d",
-            perspective: "600px",
-          }}
-          className={`absolute h-full w-full rounded-xl flex justify-center items-center text-white text-7xl`}
-        >
-          {score}
-        </motion.div>
-        {/* back */}
-        <motion.div
-          initial={{
-            backfaceVisibility: "hidden",
-            // transform: `rotateY(${flip ? -180 : 0}deg)`,
-            transform: `rotateY(${0}deg)`,
-            background: "gray",
-            perspective: "600px",
-          }}
-          animate={{
-            // transform: `rotateY(${flip ? -180 : 0}deg)`,
-            transform: `rotateY(${-180}deg)`,
-            background: "gray",
-            perspective: "600px",
-            transition: { duration: 1.2, ease: "easeInOut", delay: 0.9 },
-            backfaceVisibility: "hidden",
-            transformStyle: "preserve-3d",
-          }}
-          className={`absolute h-full w-full rounded-xl  transition-all duration-500 flex justify-center items-center text-white`}
-        >
-          <p>back</p>
-        </motion.div>
-      </motion.div>
-    </>
   );
 }
 

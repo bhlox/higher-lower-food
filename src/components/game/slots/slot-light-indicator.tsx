@@ -1,8 +1,9 @@
 import React from "react";
-import { useGameContext } from "../providers/game-provider";
+import { useGameContext } from "../../providers/game-provider";
 import { match } from "ts-pattern";
+import { cn } from "@/lib/utils/utils";
 
-function LightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
+function SlotLightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
   const { spinSlots, isCorrect } = useGameContext();
 
   const lightColor = match([spinSlots, isCorrect])
@@ -20,13 +21,15 @@ function LightIndicator({ xBorder }: { xBorder: "left" | "right" }) {
 
   return (
     <div
-      className={`flex relative justify-center items-center px-2 md:px-4 border-black ${
-        xBorder === "left" ? "border-l-2" : "border-r-2"
-      }`}
+      className={cn(
+        "flex relative justify-center items-center px-2 md:px-4 border-black",
+        undefined,
+        { "border-l-2": xBorder === "left", "border-r-2": xBorder === "right" }
+      )}
     >
-      <div className={`${lightColor} size-4 md:size-7 rounded-full`} />
+      <div className={cn("size-4 md:size-7 rounded-full", lightColor)} />
     </div>
   );
 }
 
-export default LightIndicator;
+export default SlotLightIndicator;

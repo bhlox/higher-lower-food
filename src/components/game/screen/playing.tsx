@@ -1,57 +1,40 @@
-import { useGameContext } from "@/components/providers/game-provider";
-import { isEvenNum } from "@/lib/utils/helper";
-import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
-import Box from "../box";
-import SlotsMachine from "../slot";
+import React, { Suspense } from "react";
 import ScoreUI from "../score";
 import LineDivider from "@/components/line-divider";
-import SlotMachine from "../slot-machine";
+import Loading from "@/app/game/loading";
+import QuestionContainer from "../question-container";
+import { useGameContext } from "@/components/providers/game-provider";
+import { useFetchMenuItems } from "@/lib/utils/utils";
+import Link from "next/link";
+import { FaCaretLeft } from "react-icons/fa";
 
-// #TODO npm use CLSX?
+
 function Playing() {
-  const { menuitemsData, indexes } = useGameContext();
-
-  if (!menuitemsData.length) {
-    return <motion.div className="">loading</motion.div>;
+  const { indexes } = useGameContext();
+  const { data, error, fetchNextPage } = useFetchMenuItems({
+    indexes,
+  });
+  if (error) {
+    throw new Error(error.message);
   }
-
-  const [prevIndex, currentIndex] = indexes;
-
-  // #TODO refactor below. it is also being used in the gameProvider
-  const firstCardData =
-    menuitemsData[isEvenNum(prevIndex) ? prevIndex : currentIndex];
-  const secondCardData =
-    menuitemsData[isEvenNum(currentIndex) ? prevIndex : currentIndex];
-
-  const whoHoldsNewData =
-    firstCardData === menuitemsData[currentIndex] ? "first" : "second";
-
   return (
     <>
-      <AnimatePresence initial={false}>
-        {indexes.map((indexNum, i) => (
-          <Box
-            key={
-              menuitemsData[isEvenNum(indexNum) ? prevIndex : currentIndex].id
-            }
-            order={!i ? "first" : "second"}
-            whoHoldsNewData={whoHoldsNewData}
-            data={menuitemsData[isEvenNum(indexNum) ? prevIndex : currentIndex]}
-          />
-        ))}
-      </AnimatePresence>
-
-      <SlotMachine
-        price={
-          whoHoldsNewData === "first"
-            ? firstCardData.price
-            : secondCardData.price
-        }
-
-        // price="333"
-      />
-      <ScoreUI />
+      <Suspense fallback={<Loading />}>
+        {data ? (
+          <>
+            <QuestionContainer />
+            <ScoreUI />
+          </>
+        ) : (
+          <Loading />
+        )}
+      </Suspense>
+      <Link
+        href={"/"}
+        className="absolute top-4 left-4 z-40 bg-none text-white flex justify-center items-center hover:scale-105 transition-transform ease-in-out duration-100"
+      >
+        <FaCaretLeft className="inline" /> Back
+      </Link>
       <LineDivider />
     </>
   );
