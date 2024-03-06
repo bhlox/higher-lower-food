@@ -6,15 +6,24 @@ import { FaAngleDoubleRight } from "react-icons/fa";
 import { cn } from "@/lib/utils/utils";
 import { useMediaQuery } from "@/hooks/use-media-query";
 
-function PlayButton({ handler }: { handler?: AnyCallback }) {
+function PlayButton({
+  handler,
+  showRainbowBorder,
+}: {
+  handler?: AnyCallback;
+  showRainbowBorder: boolean;
+}) {
   const { width } = useMediaQuery();
   return (
     <Link
       href="/game"
       className={cn(
-        "relative grid grid-rows-[0fr] group-hover:grid-rows-[1fr] place-items-center px-4 py-2 transition-all duration-500 ease-in-out rounded-xl hover:opacity-90 group-hover:animate-[to-white-bg_0.3s_0.7s_ease-in-out_forwards] group/btn hover:pr-10",
+        "relative grid grid-rows-[0fr] group-hover:grid-rows-[1fr] place-items-center px-4 py-2 transition-all duration-500 ease-in-out rounded-xl hover:opacity-90 group-hover:animate-[to-white-bg_0.3s_0.7s_ease-in-out_forwards] group/btn hover:pr-10 ",
         null,
-        { "grid-rows-[1fr] bg-emerald-50 pr-8": width < 769 }
+        {
+          "grid-rows-[1fr] bg-emerald-50 pr-8": width < 769,
+          "pointer-events-none": !showRainbowBorder,
+        }
       )}
     >
       <AnimatedBorders triggerAtCompletion={handler}>

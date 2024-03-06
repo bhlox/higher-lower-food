@@ -7,12 +7,7 @@ import {
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import { cookies, headers } from "next/headers";
-import Link from "next/link";
-import { redirect, useRouter } from "next/navigation";
 import React from "react";
-
-// #BUG when accessing this page directly, error is occuring. assuming that prefetch is not working
 
 async function GamePage() {
   // const headersList = headers();
@@ -36,14 +31,9 @@ async function GamePage() {
 
   await createAnonUser();
   return (
-    <>
-      {/* <Link href="/" className="z-30 absolute top-4 left-6">
-        <Button className="bg-gray-400 hover:bg-gray-400">Back</Button>
-      </Link> */}
       <HydrationBoundary state={dehydrate(queryClient)}>
         <GameScreen />
       </HydrationBoundary>
-    </>
   );
 }
 

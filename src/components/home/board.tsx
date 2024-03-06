@@ -35,7 +35,7 @@ function HomeBoard() {
           </span>
         </h2>
       </div>
-      <PlayButton handler={triggerRainbowBorder} />
+      <PlayButton handler={triggerRainbowBorder} showRainbowBorder={showRainbowBorder} />
     </div>
   );
 }

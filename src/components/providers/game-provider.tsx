@@ -117,10 +117,9 @@ export const GameProvider = ({ children }: PropsWithChildren<{}>) => {
   };
 
   useEffect(() => {
-    getHighScore();
     correctSound.current = new Audio("/assets/correct.wav");
     wrongSound.current = new Audio("/assets/wrong.wav");
-  });
+  }, []);
 
   return (
     <GameContext.Provider
