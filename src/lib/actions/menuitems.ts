@@ -8,10 +8,6 @@ import { REDIS_KEY_SENT_MENUITEM } from "../constants";
 import { arrayHasValue } from "../utils/helper";
 import { MappedMenuItem } from "../types";
 
-// #TODO change name
-const serverGetCookie = (name: string) =>
-  cookies().get(name)?.value.split("-").pop();
-
 export async function getSentMenuItemIds(uuid: string) {
   try {
     const status = redisClient.status;
@@ -84,14 +80,14 @@ export async function addMenuItemIds({
 }
 
 export async function getRandomUndiplicatedMenuItems() {
-  let uuid = serverGetCookie("uuid");
+  let uuid = cookies().get("uuid")?.value.split("-").pop();
   if (!uuid) {
     cookies().set("uuid", crypto.randomUUID(), {
       httpOnly: true,
       secure: true,
       sameSite: "strict",
     });
-    uuid = serverGetCookie("uuid")!;
+    uuid = cookies().get("uuid")?.value.split("-").pop()!;
   }
   // check uuid and check sendids on redis to verify sent ids to avoid duplicate values sent to the user
   const sentMenuItemIds = await getSentMenuItemIds(uuid);
