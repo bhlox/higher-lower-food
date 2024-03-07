@@ -4,13 +4,13 @@ import { users } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 
-const uuid = cookies().get("uuid")?.value!;
-
 export async function createAnonUser() {
+  const uuid = cookies().get("uuid")?.value!;
   await db.insert(users).values({ id: uuid }).onConflictDoNothing();
 }
 
 export async function updateScores(score: number) {
+  const uuid = cookies().get("uuid")?.value!;
   const highscore = await db
     .update(users)
     .set({ scores: sql`ARRAY_APPEND(${users.scores}, ${score})` })
