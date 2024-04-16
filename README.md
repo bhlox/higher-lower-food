@@ -5,6 +5,8 @@
 
 A game where you compare prices between two menu items and determine which has a higher or lower price range. This is generally for anyone particularly living in the Philippines since these users are consumers of these food brands.
 
+It was just a simple proof of concept I had in 2022 and just got the chance to just tried to give a take of my own execution
+
 ## Features
 
 - Responsive Design: Users can enjoy the game on any device, whether it's a desktop computer, tablet, or smartphone. The responsive design ensures that the game adapts seamlessly to different screen sizes and orientations, providing a consistent experience across devices.
